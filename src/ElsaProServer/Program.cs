@@ -32,10 +32,6 @@ builder.Services.AddElsa(elsa =>
     elsa.UseLiquid();
 });
 
-// Add Swagger/OpenAPI
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 // Add health checks
 builder.Services.AddHealthChecks();
 
@@ -49,19 +45,11 @@ builder.Services.AddCors(cors => cors
 
 var app = builder.Build();
 
-// Configure Swagger in development
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
 // Configure the HTTP request pipeline
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseWorkflows();
-app.UseWorkflowsApi();
 
 // Map health check endpoint
 app.MapHealthChecks("/health");
@@ -81,13 +69,12 @@ void LogAdminCredentials(IServiceProvider services, ILogger logger)
     {
         logger.LogWarning("ELSA_ADMIN_EMAIL and ELSA_ADMIN_PASSWORD environment variables not set.");
         logger.LogWarning("To create an admin user, use the Elsa Identity API after startup.");
-        logger.LogWarning("Visit http://localhost:8080/swagger for API documentation.");
+        logger.LogInformation("Server started successfully. Use the Elsa endpoints to manage workflows.");
     }
     else
     {
         logger.LogInformation("Admin credentials provided via environment variables.");
         logger.LogInformation("Email: {Email}", adminEmail);
         logger.LogInformation("Use these credentials to create an admin user via the Identity API.");
-        logger.LogInformation("API endpoint: POST /elsa/api/identity/users");
     }
 }

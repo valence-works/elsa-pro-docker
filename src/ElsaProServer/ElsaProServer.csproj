@@ -7,12 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Elsa" Version="3.4.0" />
     <PackageReference Include="Elsa.EntityFrameworkCore.Sqlite" Version="3.4.0" />
     <PackageReference Include="Elsa.Http" Version="3.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
   </ItemGroup>
 
 </Project>

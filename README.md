@@ -104,10 +104,31 @@ dotnet run
 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `ELSA_ADMIN_EMAIL` | Super admin email/username | - | Yes (first run) |
-| `ELSA_ADMIN_PASSWORD` | Super admin password | - | Yes (first run) |
+| `ELSA_ADMIN_EMAIL` | Super admin email/username | - | Recommended |
+| `ELSA_ADMIN_PASSWORD` | Super admin password | - | Recommended |
 | `ASPNETCORE_ENVIRONMENT` | ASP.NET Core environment | Production | No |
 | `ASPNETCORE_URLS` | Server URLs | http://+:8080 | No |
+
+**Note:** Admin credentials are logged at startup for reference. You'll need to create the admin user via the Identity API after the server starts.
+
+### Creating the Super Admin User
+
+The environment variables `ELSA_ADMIN_EMAIL` and `ELSA_ADMIN_PASSWORD` are logged at startup for reference. After the server starts, you can create the admin user using the Elsa Identity management features.
+
+**Note:** Admin user creation via the Identity API requires the Elsa Pro or Enterprise license which includes the full management API. For community edition deployments, you can connect a separate Elsa Studio or Designer application to manage workflows and users.
+
+For Pro/Enterprise deployments with the full API enabled, you would create users via:
+- The Elsa Studio web application
+- Direct API calls to identity endpoints
+- Custom initialization code using Elsa's identity services
+
+Example workflow:
+1. Start the server with admin credentials in environment variables
+2. The credentials are logged for your reference
+3. Use an Elsa Studio instance to connect to this server
+4. Create the admin user through the Studio UI
+
+Alternatively, for custom implementations, you can extend the `Program.cs` startup code to programmatically create admin users using Elsa's `IUserProvider` and `IRoleProvider` services.
 
 ### Connection Strings
 
@@ -164,10 +185,11 @@ docker-compose up -d
 
 ## API Documentation
 
-Once running, access the Elsa Workflows API at:
+Once running, the Elsa server provides the following endpoints:
 - Base URL: `http://localhost:8080`
-- Workflows API: `http://localhost:8080/elsa/api`
 - Health endpoint: `http://localhost:8080/health`
+
+For full API documentation and workflow management, connect an Elsa Studio application or use the Pro/Enterprise management APIs. The server provides HTTP workflow triggers and can execute workflows programmatically.
 
 ## Security Best Practices
 
