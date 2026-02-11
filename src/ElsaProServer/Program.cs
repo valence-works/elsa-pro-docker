@@ -36,12 +36,25 @@ builder.Services.AddElsa(elsa =>
 builder.Services.AddHealthChecks();
 
 // Add CORS
+var allowedOrigins = builder.Configuration.GetSection("Elsa:Cors:AllowedOrigins").Get<string[]>() 
+    ?? new[] { "*" };
+
 builder.Services.AddCors(cors => cors
-    .AddDefaultPolicy(policy => policy
-        .AllowAnyOrigin()
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-        .WithExposedHeaders("*")));
+    .AddDefaultPolicy(policy =>
+    {
+        if (allowedOrigins.Contains("*"))
+        {
+            policy.AllowAnyOrigin();
+        }
+        else
+        {
+            policy.WithOrigins(allowedOrigins);
+        }
+        
+        policy.AllowAnyHeader()
+              .AllowAnyMethod()
+              .WithExposedHeaders("*");
+    }));
 
 var app = builder.Build();
 

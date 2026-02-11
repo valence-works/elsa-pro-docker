@@ -11,11 +11,12 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__Elsa=Data Source=/app/data/elsa.db
       - Elsa__Identity__SigningKey=change-this-to-a-secure-256-bit-key-in-production
+      - Elsa__Cors__AllowedOrigins__0=http://localhost:3000
     volumes:
       - elsa-data:/app/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 30s
       timeout: 10s
       retries: 3

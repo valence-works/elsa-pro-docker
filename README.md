@@ -193,12 +193,14 @@ For full API documentation and workflow management, connect an Elsa Studio appli
 
 ## Security Best Practices
 
-1. **Change default credentials**: Always set strong passwords for the admin account
-2. **Use environment variables**: Never commit credentials in code
-3. **Secure signing key**: Generate a strong signing key for JWT tokens
-4. **HTTPS in production**: Use a reverse proxy (nginx, Traefik) with TLS
-5. **Network isolation**: Run in a private network when possible
-6. **Regular updates**: Keep the Elsa packages and base images updated
+1. **Generate a secure signing key**: The `Elsa__Identity__SigningKey` must be set to a secure randomly generated value (256-bit minimum). Never use the placeholder value in production.
+2. **Configure CORS properly**: By default, CORS allows all origins (*) for development convenience. In production, set `Elsa__Cors__AllowedOrigins` to specific trusted domains only.
+3. **Change default credentials**: Always set strong passwords for the admin account
+4. **Use environment variables**: Never commit credentials or keys in code or configuration files
+5. **HTTPS in production**: Use a reverse proxy (nginx, Traefik) with TLS certificates
+6. **Network isolation**: Run in a private network when possible
+7. **Regular updates**: Keep the Elsa packages and base images updated
+8. **Database security**: Use connection strings with authentication for production databases (PostgreSQL, SQL Server)
 
 ## Data Persistence
 
