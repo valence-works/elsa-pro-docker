@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  elsa-server:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - ELSA_ADMIN_EMAIL=${ELSA_ADMIN_EMAIL:-admin@example.com}
+      - ELSA_ADMIN_PASSWORD=${ELSA_ADMIN_PASSWORD}
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__Elsa=Data Source=/app/data/elsa.db
+      - Elsa__Identity__SigningKey=${ELSA_IDENTITY_SIGNING_KEY}
+      - Elsa__Cors__AllowedOrigins__0=${ELSA_ALLOWED_ORIGIN_0:-http://localhost:3000}
+    volumes:
+      - elsa-data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  elsa-data:
+    driver: local
