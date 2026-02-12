@@ -2,6 +2,7 @@ using Elsa.EntityFrameworkCore.Extensions;
 using Elsa.EntityFrameworkCore.Modules.Management;
 using Elsa.EntityFrameworkCore.Modules.Runtime;
 using Elsa.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,21 @@ builder.Services.AddElsa(elsa =>
     // Configure Identity
     elsa.UseIdentity(identity =>
     {
-        identity.TokenOptions = options => options.SigningKey = builder.Configuration["Elsa:Identity:SigningKey"] ?? "super-secret-signing-key-change-in-production";
+        var signingKey = builder.Configuration["Elsa:Identity:SigningKey"];
+
+        if (string.IsNullOrWhiteSpace(signingKey) || signingKey == "CHANGE_ME_TO_A_SECURE_RANDOM_KEY")
+        {
+            if (builder.Environment.IsDevelopment())
+            {
+                signingKey = "super-secret-signing-key-change-in-production";
+            }
+            else
+            {
+                throw new InvalidOperationException("Elsa identity signing key is not configured. Set 'Elsa:Identity:SigningKey' in configuration.");
+            }
+        }
+
+        identity.TokenOptions = options => options.SigningKey = signingKey;
     });
 
     elsa.UseDefaultAuthentication();
@@ -52,8 +67,7 @@ builder.Services.AddCors(cors => cors
         }
         
         policy.AllowAnyHeader()
-              .AllowAnyMethod()
-              .WithExposedHeaders("*");
+              .AllowAnyMethod();
     }));
 
 var app = builder.Build();
@@ -68,12 +82,12 @@ app.UseWorkflows();
 app.MapHealthChecks("/health");
 
 // Log admin credential environment variables
-LogAdminCredentials(app.Services, app.Logger);
+LogAdminCredentials(app.Logger);
 
 app.Run();
 
 // Helper method to log admin credential setup instructions
-void LogAdminCredentials(IServiceProvider services, ILogger logger)
+void LogAdminCredentials(ILogger logger)
 {
     var adminEmail = Environment.GetEnvironmentVariable("ELSA_ADMIN_EMAIL");
     var adminPassword = Environment.GetEnvironmentVariable("ELSA_ADMIN_PASSWORD");

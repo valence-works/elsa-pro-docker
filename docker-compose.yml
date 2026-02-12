@@ -6,12 +6,12 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - ELSA_ADMIN_EMAIL=admin@example.com
-      - ELSA_ADMIN_PASSWORD=ChangeThisPassword123!
+      - ELSA_ADMIN_EMAIL=${ELSA_ADMIN_EMAIL:-admin@example.com}
+      - ELSA_ADMIN_PASSWORD=${ELSA_ADMIN_PASSWORD}
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__Elsa=Data Source=/app/data/elsa.db
-      - Elsa__Identity__SigningKey=change-this-to-a-secure-256-bit-key-in-production
-      - Elsa__Cors__AllowedOrigins__0=http://localhost:3000
+      - Elsa__Identity__SigningKey=${ELSA_IDENTITY_SIGNING_KEY}
+      - Elsa__Cors__AllowedOrigins__0=${ELSA_ALLOWED_ORIGIN_0:-http://localhost:3000}
     volumes:
       - elsa-data:/app/data
     restart: unless-stopped

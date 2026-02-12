@@ -109,11 +109,11 @@ dotnet run
 | `ASPNETCORE_ENVIRONMENT` | ASP.NET Core environment | Production | No |
 | `ASPNETCORE_URLS` | Server URLs | http://+:8080 | No |
 
-**Note:** Admin credentials are logged at startup for reference. You'll need to create the admin user via the Identity API after the server starts.
+**Note:** The admin email is logged at startup for reference (password is not logged for security). You'll need to create the admin user via the Identity API after the server starts.
 
 ### Creating the Super Admin User
 
-The environment variables `ELSA_ADMIN_EMAIL` and `ELSA_ADMIN_PASSWORD` are logged at startup for reference. After the server starts, you can create the admin user using the Elsa Identity management features.
+The environment variable `ELSA_ADMIN_EMAIL` is logged at startup for reference (the password is not logged for security reasons). After the server starts, you can create the admin user using the Elsa Identity management features.
 
 **Note:** Admin user creation via the Identity API requires the Elsa Pro or Enterprise license which includes the full management API. For community edition deployments, you can connect a separate Elsa Studio or Designer application to manage workflows and users.
 
