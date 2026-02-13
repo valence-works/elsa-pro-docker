@@ -1,5 +1,144 @@
 <Solution>
+  <Folder Name="/cshells/">
+    <Project Path="../cshells/src/CShells.Abstractions/CShells.Abstractions.csproj" />
+    <Project Path="../cshells/src/CShells/CShells.csproj" />
+    <Project Path="../cshells/src/CShells.AspNetCore.Abstractions/CShells.AspNetCore.Abstractions.csproj" />
+    <Project Path="../cshells/src/CShells.AspNetCore/CShells.AspNetCore.csproj" />
+    <Project Path="../cshells/src/CShells.AspNetCore.Testing/CShells.AspNetCore.Testing.csproj" />
+    <Project Path="../cshells/src/CShells.FastEndpoints.Abstractions/CShells.FastEndpoints.Abstractions.csproj" />
+    <Project Path="../cshells/src/CShells.FastEndpoints/CShells.FastEndpoints.csproj" />
+    <Project Path="../cshells/src/CShells.Providers.FluentStorage/CShells.Providers.FluentStorage.csproj" />
+  </Folder>
+  <Folder Name="/elsa/">
+    <Project Path="../elsa-core/src/clients/Elsa.Api.Client/Elsa.Api.Client.csproj" />
+  <Project Path="../elsa-core/src/common/Elsa.Api.Common/Elsa.Api.Common.csproj">
+  </Project>
+    <Project Path="../elsa-core/src/common/Elsa.Features/Elsa.Features.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/common/Elsa.Mediator/Elsa.Mediator.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa/Elsa.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Alterations/Elsa.Alterations.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Alterations.Core/Elsa.Alterations.Core.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Caching/Elsa.Caching.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Common/Elsa.Common.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Dsl.ElsaScript/Elsa.Dsl.ElsaScript.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Expressions/Elsa.Expressions.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Expressions.CSharp/Elsa.Expressions.CSharp.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Expressions.JavaScript/Elsa.Expressions.JavaScript.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Expressions.JavaScript.Libraries/Elsa.Expressions.JavaScript.Libraries.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Expressions.Liquid/Elsa.Expressions.Liquid.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Expressions.Python/Elsa.Expressions.Python.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Hosting.Management/Elsa.Hosting.Management.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Http/Elsa.Http.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Identity/Elsa.Identity.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.KeyValues/Elsa.KeyValues.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Labels/Elsa.Labels.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Persistence.EFCore/Elsa.Persistence.EFCore.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Persistence.EFCore.Common/Elsa.Persistence.EFCore.Common.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Persistence.EFCore.MySql/Elsa.Persistence.EFCore.MySql.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Persistence.EFCore.Oracle/Elsa.Persistence.EFCore.Oracle.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Persistence.EFCore.PostgreSql/Elsa.Persistence.EFCore.PostgreSql.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Persistence.EFCore.SqlServer/Elsa.Persistence.EFCore.SqlServer.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Persistence.EFCore.Sqlite/Elsa.Persistence.EFCore.Sqlite.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Resilience/Elsa.Resilience.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Resilience.Core/Elsa.Resilience.Core.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.SasTokens/Elsa.SasTokens.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Scheduling/Elsa.Scheduling.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Tenants/Elsa.Tenants.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Tenants.AspNetCore/Elsa.Tenants.AspNetCore.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.WorkflowProviders.BlobStorage/Elsa.WorkflowProviders.BlobStorage.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.WorkflowProviders.BlobStorage.ElsaScript/Elsa.WorkflowProviders.BlobStorage.ElsaScript.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Workflows.Api/Elsa.Workflows.Api.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Workflows.Core/Elsa.Workflows.Core.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Workflows.Management/Elsa.Workflows.Management.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Workflows.Runtime/Elsa.Workflows.Runtime.csproj">
+
+    </Project>
+    <Project Path="../elsa-core/src/modules/Elsa.Workflows.Runtime.Distributed/Elsa.Workflows.Runtime.Distributed.csproj">
+
+    </Project>
+  </Folder>
+  <Folder Name="/solution/">
+    <File Path=".dockerignore" />
+    <File Path=".gitignore" />
+  </Folder>
+  
   <Folder Name="/src/">
-    <Project Path="src/ElsaProServer/ElsaProServer.csproj" />
+  <Project Path="src/ElsaProServer/ElsaProServer.csproj">
+  </Project>
+    <Project Path="src\ElsaProStudio.BlazorServer\ElsaProStudio.BlazorServer.csproj" />
   </Folder>
 </Solution>

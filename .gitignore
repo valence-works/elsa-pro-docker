@@ -11,6 +11,10 @@
 *.sln.docstates
 *.env
 
+.idea/
+locks/
+.DS_Store
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -416,5 +420,3 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
-
-.idea/.idea.ElsaProServer/.idea/

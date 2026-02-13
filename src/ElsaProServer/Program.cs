@@ -1,82 +1,44 @@
-using Elsa.EntityFrameworkCore.Extensions;
-using Elsa.EntityFrameworkCore.Modules.Management;
-using Elsa.EntityFrameworkCore.Modules.Runtime;
-using Elsa.Extensions;
-using Microsoft.EntityFrameworkCore;
+using CShells.AspNetCore.Configuration;
+using CShells.AspNetCore.Extensions;
+using CShells.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
-// Add Elsa services
-builder.Services.AddElsa(elsa =>
+builder.AddShells(shells =>
 {
-    // Configure management features with EF Core
-    elsa.UseWorkflowManagement(management =>
+    shells.WithAuthenticationAndAuthorization();
+    shells.WithConfigurationProvider(builder.Configuration);
+    shells.AddShell("Default", shell =>
     {
-        management.UseEntityFrameworkCore(ef => ef.UseSqlite(builder.Configuration.GetConnectionString("Elsa") ?? "Data Source=elsa.db"));
+        shell.WithFeatures("Elsa", "WorkflowsApi", "Resilience");
+        shell.FromConfiguration(builder.Configuration.GetSection("Elsa:Shell"));
     });
-
-    // Configure runtime features with EF Core
-    elsa.UseWorkflowRuntime(runtime =>
-    {
-        runtime.UseEntityFrameworkCore(ef => ef.UseSqlite(builder.Configuration.GetConnectionString("Elsa") ?? "Data Source=elsa.db"));
-    });
-
-    // Configure Identity
-    elsa.UseIdentity(identity =>
-    {
-        var signingKey = builder.Configuration["Elsa:Identity:SigningKey"];
-
-        if (string.IsNullOrWhiteSpace(signingKey) || signingKey == "CHANGE_ME_TO_A_SECURE_RANDOM_KEY")
-        {
-            if (builder.Environment.IsDevelopment())
-            {
-                signingKey = "super-secret-signing-key-change-in-production";
-            }
-            else
-            {
-                throw new InvalidOperationException("Elsa identity signing key is not configured. Set 'Elsa:Identity:SigningKey' in configuration.");
-            }
-        }
-
-        identity.TokenOptions = options => options.SigningKey = signingKey;
-    });
-
-    elsa.UseDefaultAuthentication();
-    elsa.UseHttp();
-    elsa.UseJavaScript();
-    elsa.UseLiquid();
 });
 
-// Add health checks
-builder.Services.AddHealthChecks();
+services.AddAuthentication();
+services.AddAuthorization();
+services.AddHealthChecks();
 
 // Add CORS
-var allowedOrigins = builder.Configuration.GetSection("Elsa:Cors:AllowedOrigins").Get<string[]>() 
-    ?? new[] { "*" };
+var allowedOrigins = builder.Configuration.GetSection("Elsa:Cors:AllowedOrigins").Get<string[]>() ?? [];
 
-builder.Services.AddCors(cors => cors
+services.AddCors(cors => cors
     .AddDefaultPolicy(policy =>
     {
-        if (allowedOrigins.Contains("*"))
-        {
-            policy.AllowAnyOrigin();
-        }
-        else
-        {
-            policy.WithOrigins(allowedOrigins);
-        }
-        
-        policy.AllowAnyHeader()
-              .AllowAnyMethod();
+        if (allowedOrigins.Contains("*")) policy.AllowAnyOrigin();
+        else policy.WithOrigins(allowedOrigins);
+
+        policy.AllowAnyHeader().AllowAnyMethod();
     }));
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
 app.UseCors();
+app.MapShells();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseWorkflows();
 
 // Map health check endpoint
 app.MapHealthChecks("/health");
