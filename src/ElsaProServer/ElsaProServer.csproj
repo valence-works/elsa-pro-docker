@@ -17,6 +17,13 @@
         <ProjectReference Include="../../../cshells/src/CShells.AspNetCore/CShells.AspNetCore.csproj"/>
         <ProjectReference Include="../../../cshells/src/CShells.AspNetCore.Abstractions/CShells.AspNetCore.Abstractions.csproj"/>
         <ProjectReference Include="../../../cshells/src/CShells.FastEndpoints/CShells.FastEndpoints.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\ElsaProServer.Identity\ElsaProServer.Identity.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.2"/>
     </ItemGroup>
 
