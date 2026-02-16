@@ -1,3 +1,4 @@
+using Elsa.Studio.Contracts;
 using Elsa.Studio.Core.BlazorServer.Extensions;
 using Elsa.Studio.Dashboard.Extensions;
 using Elsa.Studio.Extensions;
@@ -10,6 +11,7 @@ using Elsa.Studio.Models;
 using Elsa.Studio.Shell.Extensions;
 using Elsa.Studio.Workflows.Designer.Extensions;
 using Elsa.Studio.Workflows.Extensions;
+using ElsaProStudio.BlazorServer;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,7 +40,8 @@ services.AddRemoteBackend(backendApiConfig);
 services.AddLoginModule().UseElsaIdentity();
 services.AddDashboardModule();
 services.AddWorkflowsModule();
-builder.Services.AddScoped<ITimeZoneProvider, LocalTimeZoneProvider>();
+services.AddScoped<ITimeZoneProvider, LocalTimeZoneProvider>();
+services.AddScoped<IFeature, CustomThemeFeature>();
 
 var app = builder.Build();
 
