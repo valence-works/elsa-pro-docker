@@ -140,7 +140,6 @@
   <Folder Name="/solution/">
     <File Path=".dockerignore" />
     <File Path=".gitignore" />
-    <File Path="Directory.Build.targets" />
   </Folder>
   
   <Folder Name="/src/">
