@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/cshells/">
+    <File Path="..\cshells\Directory.Packages.props" />
     <Project Path="../cshells/src/CShells.Abstractions/CShells.Abstractions.csproj" />
     <Project Path="../cshells/src/CShells/CShells.csproj" />
     <Project Path="../cshells/src/CShells.AspNetCore.Abstractions/CShells.AspNetCore.Abstractions.csproj" />
@@ -16,6 +17,7 @@
     <Project Path="../elsa-extensions/src/modules/servicebus/Elsa.ServiceBus.MassTransit/Elsa.ServiceBus.MassTransit.csproj" />
   </Folder>
   <Folder Name="/elsa/">
+    <File Path="..\elsa-core\Directory.Packages.props" />
     <Project Path="../elsa-core/src/clients/Elsa.Api.Client/Elsa.Api.Client.csproj" />
   <Project Path="../elsa-core/src/common/Elsa.Api.Common/Elsa.Api.Common.csproj">
   </Project>
