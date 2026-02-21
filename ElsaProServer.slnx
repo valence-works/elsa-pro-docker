@@ -9,6 +9,12 @@
     <Project Path="../cshells/src/CShells.FastEndpoints/CShells.FastEndpoints.csproj" />
     <Project Path="../cshells/src/CShells.Providers.FluentStorage/CShells.Providers.FluentStorage.csproj" />
   </Folder>
+  <Folder Name="/elsa-extensions/">
+    <File Path="..\elsa-extensions\Directory.Packages.props" />
+    <Project Path="../elsa-extensions/src/modules/servicebus/Elsa.ServiceBus.MassTransit.AzureServiceBus/Elsa.ServiceBus.MassTransit.AzureServiceBus.csproj" />
+    <Project Path="../elsa-extensions/src/modules/servicebus/Elsa.ServiceBus.MassTransit.RabbitMq/Elsa.ServiceBus.MassTransit.RabbitMq.csproj" />
+    <Project Path="../elsa-extensions/src/modules/servicebus/Elsa.ServiceBus.MassTransit/Elsa.ServiceBus.MassTransit.csproj" />
+  </Folder>
   <Folder Name="/elsa/">
     <Project Path="../elsa-core/src/clients/Elsa.Api.Client/Elsa.Api.Client.csproj" />
   <Project Path="../elsa-core/src/common/Elsa.Api.Common/Elsa.Api.Common.csproj">
@@ -134,6 +140,7 @@
   <Folder Name="/solution/">
     <File Path=".dockerignore" />
     <File Path=".gitignore" />
+    <File Path="Directory.Build.targets" />
   </Folder>
   
   <Folder Name="/src/">

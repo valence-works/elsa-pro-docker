@@ -20,6 +20,9 @@
     </ItemGroup>
     
     <ItemGroup>
+        <ProjectReference Include="..\..\..\elsa-extensions\src\modules\servicebus\Elsa.ServiceBus.MassTransit.AzureServiceBus\Elsa.ServiceBus.MassTransit.AzureServiceBus.csproj" />
+        <ProjectReference Include="..\..\..\elsa-extensions\src\modules\servicebus\Elsa.ServiceBus.MassTransit.RabbitMq\Elsa.ServiceBus.MassTransit.RabbitMq.csproj" />
+        <ProjectReference Include="..\..\..\elsa-extensions\src\modules\servicebus\Elsa.ServiceBus.MassTransit\Elsa.ServiceBus.MassTransit.csproj" />
         <ProjectReference Include="..\ElsaProServer.Identity\ElsaProServer.Identity.csproj" />
     </ItemGroup>
     
