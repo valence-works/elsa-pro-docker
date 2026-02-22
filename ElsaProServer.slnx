@@ -12,6 +12,11 @@
   </Folder>
   <Folder Name="/elsa-extensions/">
     <File Path="..\elsa-extensions\Directory.Packages.props" />
+    <Project Path="../elsa-extensions/src/modules/scheduling/Elsa.Scheduling.Quartz.EFCore.MySql/Elsa.Scheduling.Quartz.EFCore.MySql.csproj" />
+    <Project Path="../elsa-extensions/src/modules/scheduling/Elsa.Scheduling.Quartz.EFCore.PostgreSql/Elsa.Scheduling.Quartz.EFCore.PostgreSql.csproj" />
+    <Project Path="../elsa-extensions/src/modules/scheduling/Elsa.Scheduling.Quartz.EFCore.Sqlite/Elsa.Scheduling.Quartz.EFCore.Sqlite.csproj" />
+    <Project Path="../elsa-extensions/src/modules/scheduling/Elsa.Scheduling.Quartz.EFCore.SqlServer/Elsa.Scheduling.Quartz.EFCore.SqlServer.csproj" />
+    <Project Path="../elsa-extensions/src/modules/scheduling/Elsa.Scheduling.Quartz/Elsa.Scheduling.Quartz.csproj" />
     <Project Path="../elsa-extensions/src/modules/servicebus/Elsa.ServiceBus.MassTransit.AzureServiceBus/Elsa.ServiceBus.MassTransit.AzureServiceBus.csproj" />
     <Project Path="../elsa-extensions/src/modules/servicebus/Elsa.ServiceBus.MassTransit.RabbitMq/Elsa.ServiceBus.MassTransit.RabbitMq.csproj" />
     <Project Path="../elsa-extensions/src/modules/servicebus/Elsa.ServiceBus.MassTransit/Elsa.ServiceBus.MassTransit.csproj" />
