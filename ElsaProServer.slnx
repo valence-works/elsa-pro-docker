@@ -142,6 +142,7 @@
   <Folder Name="/solution/">
     <File Path=".dockerignore" />
     <File Path=".gitignore" />
+    <File Path="docker-compose.yml" />
   </Folder>
   
   <Folder Name="/src/">
