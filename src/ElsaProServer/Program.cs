@@ -1,6 +1,7 @@
 using CShells.AspNetCore.Configuration;
 using CShells.AspNetCore.Extensions;
 using CShells.DependencyInjection;
+using CShells.FastEndpoints.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -21,6 +22,11 @@ builder.AddShells(shells =>
             "MassTransitWorkflowManagement",
             "MassTransitWorkflowDispatcher",
             "HttpCache");
+
+        shell.WithFeature<FastEndpointsFeature>(feature =>
+        {
+            feature.EndpointRoutePrefix = "api";
+        });
         shell.FromConfiguration(builder.Configuration.GetSection("Elsa:Shell"));
     });
 });
