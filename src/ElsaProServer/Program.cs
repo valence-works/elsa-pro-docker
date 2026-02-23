@@ -11,7 +11,16 @@ builder.AddShells(shells =>
     shells.WithConfigurationProvider(builder.Configuration);
     shells.AddShell("Default", shell =>
     {
-        shell.WithFeatures("Elsa", "WorkflowsApi", "Resilience");
+        shell.WithFeatures(
+            "Elsa", 
+            "DistributedRuntime", 
+            "WorkflowsApi", 
+            "Resilience", 
+            "JavaScript", 
+            "QuartzScheduler",
+            "MassTransitWorkflowManagement",
+            "MassTransitWorkflowDispatcher",
+            "HttpCache");
         shell.FromConfiguration(builder.Configuration.GetSection("Elsa:Shell"));
     });
 });
