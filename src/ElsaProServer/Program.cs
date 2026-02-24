@@ -2,6 +2,16 @@ using CShells.AspNetCore.Configuration;
 using CShells.AspNetCore.Extensions;
 using CShells.DependencyInjection;
 using CShells.FastEndpoints.Features;
+using Elsa.Expressions.JavaScript.ShellFeatures;
+using Elsa.Http.ShellFeatures;
+using Elsa.Resilience.ShellFeatures;
+using Elsa.Scheduling.Quartz.ShellFeatures;
+using Elsa.ServiceBus.MassTransit.ShellFeatures;
+using Elsa.ShellFeatures;
+using Elsa.Workflows.Api.ShellFeatures;
+using Elsa.Workflows.Management.ShellFeatures;
+using Elsa.Workflows.Runtime.Distributed.ShellFeatures;
+using Elsa.Workflows.Runtime.ShellFeatures;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -13,15 +23,17 @@ builder.AddShells(shells =>
     shells.AddShell("Default", shell =>
     {
         shell.WithFeatures(
-            "Elsa", 
-            "DistributedRuntime", 
-            "WorkflowsApi", 
-            "Resilience", 
-            "JavaScript", 
-            "QuartzScheduler",
-            "MassTransitWorkflowManagement",
-            "MassTransitWorkflowDispatcher",
-            "HttpCache");
+            typeof(ElsaFeature), 
+            typeof(DistributedRuntimeFeature),
+            typeof(WorkflowsApiFeature), 
+            typeof(ResilienceFeature),
+            typeof(CachingWorkflowDefinitionsFeature),
+            typeof(CachingWorkflowRuntimeFeature),
+            typeof(JavaScriptFeature), 
+            typeof(QuartzSchedulerFeature),
+            typeof(MassTransitWorkflowManagementFeature),
+            typeof(MassTransitWorkflowDispatcherFeature),
+            typeof(HttpCacheFeature));
 
         shell.WithFeature<FastEndpointsFeature>(feature =>
         {
