@@ -1,6 +1,9 @@
 <Solution>
   <Folder Name="/cshells/">
     <File Path="..\cshells\Directory.Packages.props" />
+    <File Path="..\cshells\docs\feature-configuration.md" />
+    <File Path="..\cshells\docs\integration-patterns.md" />
+    <File Path="..\cshells\docs\multiple-shell-providers.md" />
     <Project Path="../cshells/src/CShells.Abstractions/CShells.Abstractions.csproj" />
     <Project Path="../cshells/src/CShells/CShells.csproj" />
     <Project Path="../cshells/src/CShells.AspNetCore.Abstractions/CShells.AspNetCore.Abstractions.csproj" />
