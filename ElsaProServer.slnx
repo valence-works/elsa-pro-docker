@@ -15,6 +15,7 @@
   </Folder>
   <Folder Name="/elsa-extensions/">
     <File Path="..\elsa-extensions\Directory.Packages.props" />
+    <Project Path="../elsa-extensions/src/modules/http/Elsa.Http.Webhooks/Elsa.Http.Webhooks.csproj" />
     <Project Path="../elsa-extensions/src/modules/scheduling/Elsa.Scheduling.Quartz.EFCore.MySql/Elsa.Scheduling.Quartz.EFCore.MySql.csproj" />
     <Project Path="../elsa-extensions/src/modules/scheduling/Elsa.Scheduling.Quartz.EFCore.PostgreSql/Elsa.Scheduling.Quartz.EFCore.PostgreSql.csproj" />
     <Project Path="../elsa-extensions/src/modules/scheduling/Elsa.Scheduling.Quartz.EFCore.Sqlite/Elsa.Scheduling.Quartz.EFCore.Sqlite.csproj" />
