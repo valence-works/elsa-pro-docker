@@ -7,26 +7,26 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="../../../elsa-core/src/modules/Elsa/Elsa.csproj"/>
-        <ProjectReference Include="../../../elsa-core/src/modules/Elsa.Persistence.EFCore.Sqlite/Elsa.Persistence.EFCore.Sqlite.csproj"/>
-        <ProjectReference Include="../../../elsa-core/src/modules/Elsa.Http/Elsa.Http.csproj"/>
+        <ProjectReference Include="../../../../../Elsa/elsa-core/main/src/modules/Elsa/Elsa.csproj"/>
+        <ProjectReference Include="../../../../../Elsa/elsa-core/main/src/modules/Elsa.Persistence.EFCore.Sqlite/Elsa.Persistence.EFCore.Sqlite.csproj"/>
+        <ProjectReference Include="../../../../../Elsa/elsa-core/main/src/modules/Elsa.Http/Elsa.Http.csproj"/>
     </ItemGroup>
     
     <ItemGroup>
-        <ProjectReference Include="../../../cshells/src/CShells/CShells.csproj"/>
-        <ProjectReference Include="../../../cshells/src/CShells.AspNetCore/CShells.AspNetCore.csproj"/>
-        <ProjectReference Include="../../../cshells/src/CShells.AspNetCore.Abstractions/CShells.AspNetCore.Abstractions.csproj"/>
-        <ProjectReference Include="../../../cshells/src/CShells.FastEndpoints/CShells.FastEndpoints.csproj" />
+        <ProjectReference Include="../../../../cshells/main/src/CShells/CShells.csproj"/>
+        <ProjectReference Include="../../../../cshells/main/src/CShells.AspNetCore/CShells.AspNetCore.csproj"/>
+        <ProjectReference Include="../../../../cshells/main/src/CShells.AspNetCore.Abstractions/CShells.AspNetCore.Abstractions.csproj"/>
+        <ProjectReference Include="../../../../cshells/main/src/CShells.FastEndpoints/CShells.FastEndpoints.csproj" />
     </ItemGroup>
     
     <ItemGroup>
-        <ProjectReference Include="..\..\..\elsa-core\src\modules\Elsa.Workflows.Runtime.Distributed\Elsa.Workflows.Runtime.Distributed.csproj" />
-        <ProjectReference Include="..\..\..\elsa-extensions\src\modules\scheduling\Elsa.Scheduling.Quartz.EFCore.PostgreSql\Elsa.Scheduling.Quartz.EFCore.PostgreSql.csproj" />
-        <ProjectReference Include="..\..\..\elsa-extensions\src\modules\scheduling\Elsa.Scheduling.Quartz.EFCore.Sqlite\Elsa.Scheduling.Quartz.EFCore.Sqlite.csproj" />
-        <ProjectReference Include="..\..\..\elsa-extensions\src\modules\scheduling\Elsa.Scheduling.Quartz\Elsa.Scheduling.Quartz.csproj" />
-        <ProjectReference Include="..\..\..\elsa-extensions\src\modules\servicebus\Elsa.ServiceBus.MassTransit.AzureServiceBus\Elsa.ServiceBus.MassTransit.AzureServiceBus.csproj" />
-        <ProjectReference Include="..\..\..\elsa-extensions\src\modules\servicebus\Elsa.ServiceBus.MassTransit.RabbitMq\Elsa.ServiceBus.MassTransit.RabbitMq.csproj" />
-        <ProjectReference Include="..\..\..\elsa-extensions\src\modules\servicebus\Elsa.ServiceBus.MassTransit\Elsa.ServiceBus.MassTransit.csproj" />
+        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-core\main\src\modules\Elsa.Workflows.Runtime.Distributed\Elsa.Workflows.Runtime.Distributed.csproj" />
+        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\scheduling\Elsa.Scheduling.Quartz.EFCore.PostgreSql\Elsa.Scheduling.Quartz.EFCore.PostgreSql.csproj" />
+        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\scheduling\Elsa.Scheduling.Quartz.EFCore.Sqlite\Elsa.Scheduling.Quartz.EFCore.Sqlite.csproj" />
+        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\scheduling\Elsa.Scheduling.Quartz\Elsa.Scheduling.Quartz.csproj" />
+        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\servicebus\Elsa.ServiceBus.MassTransit.AzureServiceBus\Elsa.ServiceBus.MassTransit.AzureServiceBus.csproj" />
+        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\servicebus\Elsa.ServiceBus.MassTransit.RabbitMq\Elsa.ServiceBus.MassTransit.RabbitMq.csproj" />
+        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\servicebus\Elsa.ServiceBus.MassTransit\Elsa.ServiceBus.MassTransit.csproj" />
         <ProjectReference Include="..\ElsaProServer.Identity\ElsaProServer.Identity.csproj" />
     </ItemGroup>
     
