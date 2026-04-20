@@ -20,6 +20,16 @@
     </ItemGroup>
     
     <ItemGroup>
+        <ProjectReference Include="..\..\..\..\cshells\main\src\CShells.Abstractions\CShells.Abstractions.csproj" />
+        <ProjectReference Include="..\..\..\..\nuplane\main\src\Nuplane.Abstractions\Nuplane.Abstractions.csproj" />
+        <ProjectReference Include="..\..\..\..\nuplane\main\src\Nuplane.Loading.Abstractions\Nuplane.Loading.Abstractions.csproj" />
+        <ProjectReference Include="..\..\..\..\nuplane\main\src\Nuplane.Loading.Api\Nuplane.Loading.Api.csproj" />
+        <ProjectReference Include="..\..\..\..\nuplane\main\src\Nuplane.Loading\Nuplane.Loading.csproj" />
+        <ProjectReference Include="..\..\..\..\nuplane\main\src\Nuplane.Sources.Directory\Nuplane.Sources.Directory.csproj" />
+        <ProjectReference Include="..\..\..\..\nuplane\main\src\Nuplane\Nuplane.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
         <ProjectReference Include="..\..\..\..\..\Elsa\elsa-core\main\src\modules\Elsa.Workflows.Runtime.Distributed\Elsa.Workflows.Runtime.Distributed.csproj" />
         <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\scheduling\Elsa.Scheduling.Quartz.EFCore.PostgreSql\Elsa.Scheduling.Quartz.EFCore.PostgreSql.csproj" />
         <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\scheduling\Elsa.Scheduling.Quartz.EFCore.Sqlite\Elsa.Scheduling.Quartz.EFCore.Sqlite.csproj" />
@@ -32,6 +42,10 @@
     
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="packages\" />
     </ItemGroup>
 
 </Project>

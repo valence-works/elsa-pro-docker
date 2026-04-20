@@ -168,6 +168,7 @@
   <Project Path="src/ElsaProServer/ElsaProServer.csproj">
   </Project>
     <Project Path="src/ElsaProServer.Identity/ElsaProServer.Identity.csproj" />
+    <Project Path="src/SamplePackage/SamplePackage.csproj" />
     <Project Path="src\ElsaProStudio.BlazorServer\ElsaProStudio.BlazorServer.csproj" />
   </Folder>
 </Solution>

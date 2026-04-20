@@ -12,36 +12,46 @@ using Elsa.Workflows.Api.ShellFeatures;
 using Elsa.Workflows.Management.ShellFeatures;
 using Elsa.Workflows.Runtime.Distributed.ShellFeatures;
 using Elsa.Workflows.Runtime.ShellFeatures;
+using ElsaProServer;
+using Nuplane;
+using Nuplane.Loading.Hosting.Builder;
+using Nuplane.Sources.Directory.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
+var configuration = builder.Configuration;
 
-builder.AddShells(shells =>
+var nuplaneConfiguration = configuration.GetSection("Nuplane");
+
+services.AddNuplane(nuplaneConfiguration, nuplane =>
 {
-    shells.WithAuthenticationAndAuthorization();
-    shells.WithConfigurationProvider(builder.Configuration);
-    shells.AddShell("Default", shell =>
+    nuplane.AddDirectoryFeedsFromConfiguration(nuplaneConfiguration);
+    nuplane.AutoloadPackages(nuplaneConfiguration.GetSection("Loading"));
+});
+
+services.AddSingleton<NuplaneAssemblyProvider>();
+
+builder.AddShells(shells => shells
+    .WithAssemblyProvider<NuplaneAssemblyProvider>()
+    .WithAuthenticationAndAuthorization()
+    .WithConfigurationProvider(builder.Configuration)
+    .ConfigureAllShells(shell =>
     {
         shell.WithFeatures(
-            typeof(ElsaFeature), 
-            typeof(DistributedRuntimeFeature),
-            typeof(WorkflowsApiFeature), 
-            typeof(ResilienceFeature),
-            typeof(CachingWorkflowDefinitionsFeature),
-            typeof(CachingWorkflowRuntimeFeature),
-            typeof(JavaScriptFeature), 
-            typeof(QuartzSchedulerFeature),
-            typeof(MassTransitWorkflowManagementFeature),
-            typeof(MassTransitWorkflowDispatcherFeature),
-            typeof(HttpCacheFeature));
-
-        shell.WithFeature<FastEndpointsFeature>(feature =>
-        {
-            feature.EndpointRoutePrefix = "api";
-        });
-        shell.FromConfiguration(builder.Configuration.GetSection("Elsa:Shell"));
-    });
-});
+                typeof(ElsaFeature),
+                typeof(DistributedRuntimeFeature),
+                typeof(WorkflowsApiFeature),
+                typeof(ResilienceFeature),
+                typeof(CachingWorkflowDefinitionsFeature),
+                typeof(CachingWorkflowRuntimeFeature),
+                typeof(JavaScriptFeature),
+                typeof(QuartzSchedulerFeature),
+                typeof(MassTransitWorkflowManagementFeature),
+                typeof(MassTransitWorkflowDispatcherFeature),
+                typeof(HttpCacheFeature))
+            .WithFeature<FastEndpointsFeature>(feature => { feature.EndpointRoutePrefix = "api"; });
+    })
+);
 
 services.AddAuthentication();
 services.AddAuthorization();

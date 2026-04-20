@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../../elsa-core/src/modules/Elsa.Identity/Elsa.Identity.csproj" />
-    <ProjectReference Include="../../../cshells/src/CShells/CShells.csproj" />
-    <ProjectReference Include="../../../cshells/src/CShells.FastEndpoints/CShells.FastEndpoints.csproj" />
+    <ProjectReference Include="../../../../../Elsa/elsa-core/main/src/modules/Elsa.Identity/Elsa.Identity.csproj" />
+    <ProjectReference Include="../../../../cshells/main/src/CShells/CShells.csproj" />
+    <ProjectReference Include="../../../../cshells/main/src/CShells.FastEndpoints/CShells.FastEndpoints.csproj" />
   </ItemGroup>
 
   <ItemGroup>
