@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../../../../Elsa/elsa-core/main/src/modules/Elsa.Identity/Elsa.Identity.csproj" />
-    <ProjectReference Include="../../../../cshells/main/src/CShells/CShells.csproj" />
-    <ProjectReference Include="../../../../cshells/main/src/CShells.FastEndpoints/CShells.FastEndpoints.csproj" />
+    <PackageReference Include="Elsa.Identity"/>
+    <PackageReference Include="CShells"/>
+    <PackageReference Include="CShells.FastEndpoints"/>
   </ItemGroup>
 
   <ItemGroup>

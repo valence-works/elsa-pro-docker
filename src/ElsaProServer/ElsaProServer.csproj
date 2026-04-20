@@ -7,43 +7,47 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="../../../../../Elsa/elsa-core/main/src/modules/Elsa/Elsa.csproj"/>
-        <ProjectReference Include="../../../../../Elsa/elsa-core/main/src/modules/Elsa.Persistence.EFCore.Sqlite/Elsa.Persistence.EFCore.Sqlite.csproj"/>
-        <ProjectReference Include="../../../../../Elsa/elsa-core/main/src/modules/Elsa.Http/Elsa.Http.csproj"/>
+        <PackageReference Include="Elsa"/>
+        <PackageReference Include="Elsa.Persistence.EFCore.Sqlite"/>
+        <PackageReference Include="Elsa.Http"/>
     </ItemGroup>
-    
+
     <ItemGroup>
-        <ProjectReference Include="../../../../cshells/main/src/CShells/CShells.csproj"/>
-        <ProjectReference Include="../../../../cshells/main/src/CShells.AspNetCore/CShells.AspNetCore.csproj"/>
-        <ProjectReference Include="../../../../cshells/main/src/CShells.AspNetCore.Abstractions/CShells.AspNetCore.Abstractions.csproj"/>
-        <ProjectReference Include="../../../../cshells/main/src/CShells.FastEndpoints/CShells.FastEndpoints.csproj" />
+        <PackageReference Include="CShells"/>
+        <PackageReference Include="CShells.Abstractions"/>
+        <PackageReference Include="CShells.AspNetCore"/>
+        <PackageReference Include="CShells.AspNetCore.Abstractions"/>
+        <PackageReference Include="CShells.FastEndpoints"/>
     </ItemGroup>
-    
+
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\cshells\main\src\CShells.Abstractions\CShells.Abstractions.csproj" />
-        <ProjectReference Include="..\..\..\..\nuplane\main\src\Nuplane.Abstractions\Nuplane.Abstractions.csproj" />
-        <ProjectReference Include="..\..\..\..\nuplane\main\src\Nuplane.Loading.Abstractions\Nuplane.Loading.Abstractions.csproj" />
-        <ProjectReference Include="..\..\..\..\nuplane\main\src\Nuplane.Loading.Api\Nuplane.Loading.Api.csproj" />
-        <ProjectReference Include="..\..\..\..\nuplane\main\src\Nuplane.Loading\Nuplane.Loading.csproj" />
-        <ProjectReference Include="..\..\..\..\nuplane\main\src\Nuplane.Sources.Directory\Nuplane.Sources.Directory.csproj" />
-        <ProjectReference Include="..\..\..\..\nuplane\main\src\Nuplane\Nuplane.csproj" />
+        <PackageReference Include="Nuplane"/>
+        <PackageReference Include="Nuplane.Abstractions"/>
+        <PackageReference Include="Nuplane.Loading"/>
+        <PackageReference Include="Nuplane.Loading.Abstractions"/>
+        <PackageReference Include="Nuplane.Loading.Api"/>
+        <PackageReference Include="Nuplane.Sources.Directory"/>
     </ItemGroup>
-    
+
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-core\main\src\modules\Elsa.Workflows.Runtime.Distributed\Elsa.Workflows.Runtime.Distributed.csproj" />
-        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\scheduling\Elsa.Scheduling.Quartz.EFCore.PostgreSql\Elsa.Scheduling.Quartz.EFCore.PostgreSql.csproj" />
-        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\scheduling\Elsa.Scheduling.Quartz.EFCore.Sqlite\Elsa.Scheduling.Quartz.EFCore.Sqlite.csproj" />
-        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\scheduling\Elsa.Scheduling.Quartz\Elsa.Scheduling.Quartz.csproj" />
-        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\servicebus\Elsa.ServiceBus.MassTransit.AzureServiceBus\Elsa.ServiceBus.MassTransit.AzureServiceBus.csproj" />
-        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\servicebus\Elsa.ServiceBus.MassTransit.RabbitMq\Elsa.ServiceBus.MassTransit.RabbitMq.csproj" />
-        <ProjectReference Include="..\..\..\..\..\Elsa\elsa-extensions\main\src\modules\servicebus\Elsa.ServiceBus.MassTransit\Elsa.ServiceBus.MassTransit.csproj" />
-        <ProjectReference Include="..\ElsaProServer.Identity\ElsaProServer.Identity.csproj" />
+        <PackageReference Include="Elsa.Workflows.Runtime.Distributed"/>
+        <PackageReference Include="Elsa.Scheduling.Quartz"/>
+        <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.PostgreSql"/>
+        <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.Sqlite"/>
+        <PackageReference Include="Elsa.ServiceBus.MassTransit"/>
+        <PackageReference Include="Elsa.ServiceBus.MassTransit.AzureServiceBus"/>
+        <PackageReference Include="Elsa.ServiceBus.MassTransit.RabbitMq"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3"/>
     </ItemGroup>
-    
+
+    <ItemGroup>
+        <ProjectReference Include="..\ElsaProServer.Identity\ElsaProServer.Identity.csproj" />
+        <ProjectReference Include="..\ElsaProServer.ServiceDefaults\ElsaProServer.ServiceDefaults.csproj" />
+    </ItemGroup>
+
     <ItemGroup>
       <Folder Include="packages\" />
     </ItemGroup>

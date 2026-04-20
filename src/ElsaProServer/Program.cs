@@ -18,6 +18,8 @@ using Nuplane.Loading.Hosting.Builder;
 using Nuplane.Sources.Directory.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
+builder.Configuration.AddJsonFile("/config/config.json", optional: true, reloadOnChange: true);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
@@ -32,6 +34,7 @@ services.AddNuplane(nuplaneConfiguration, nuplane =>
 services.AddSingleton<NuplaneAssemblyProvider>();
 
 builder.AddShells(shells => shells
+    .WithHostAssemblies()
     .WithAssemblyProvider<NuplaneAssemblyProvider>()
     .WithAuthenticationAndAuthorization()
     .WithConfigurationProvider(builder.Configuration)
@@ -55,8 +58,6 @@ builder.AddShells(shells => shells
 
 services.AddAuthentication();
 services.AddAuthorization();
-services.AddHealthChecks();
-
 var allowedOrigins = builder.Configuration.GetSection("Elsa:Cors:AllowedOrigins").Get<string[]>() ?? [];
 
 services.AddCors(cors => cors
@@ -75,6 +76,6 @@ app.UseCors();
 app.MapShells();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapHealthChecks("/health");
+app.MapDefaultEndpoints();
 
 app.Run();

@@ -1,0 +1,51 @@
+{
+  // Mount this file into your container at /config/config.json to override any default appsettings.
+  // Values here take precedence over appsettings.json / appsettings.{Environment}.json,
+  // but environment variables still win over everything.
+  //
+  // Only include the keys you want to override — all other settings remain at their defaults.
+  //
+  // Docker run example:
+  //   docker run ... -v $(pwd)/config.json:/config/config.json elsa-pro-server
+  //
+  // Docker Compose example:
+  //   volumes:
+  //     - ./config.json:/config/config.json
+
+  "ConnectionStrings": {
+    // Override the database connection string.
+    // SQLite:     "Data Source=/app/data/elsa.db"
+    // PostgreSQL: "Host=db;Database=elsa;Username=elsa;Password=secret"
+    // SQL Server: "Server=db;Database=elsa;User Id=sa;Password=secret"
+    "Elsa": "Data Source=/app/data/elsa.db"
+  },
+
+  "CShells": {
+    "Shells": [
+      {
+        "Name": "Default",
+        "Features": {
+          "Identity": {
+            // Must be changed to a securely generated random value (256-bit minimum) in production.
+            "SigningKey": "CHANGE_ME_TO_A_SECURE_RANDOM_KEY"
+          },
+          "Http": {
+            "HttpActivityOptions": {
+              // Public-facing base URL used to build callback URLs for HTTP activities.
+              "BaseUrl": "https://your-domain.example.com"
+            }
+          }
+        }
+      }
+    ]
+  },
+
+  "Elsa": {
+    "Cors": {
+      // Restrict to specific origins in production. Use ["*"] only for development.
+      "AllowedOrigins": [
+        "https://your-studio.example.com"
+      ]
+    }
+  }
+}

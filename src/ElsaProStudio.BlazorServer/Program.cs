@@ -15,7 +15,9 @@ using ElsaProStudio.BlazorServer;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
 builder.WebHost.UseStaticWebAssets();
+builder.Configuration.AddJsonFile("/config/config.json", optional: true, reloadOnChange: true);
 
 var services = builder.Services;
 var configuration = builder.Configuration;
@@ -58,6 +60,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
 app.MapBlazorHub();
+app.MapDefaultEndpoints();
 app.MapFallbackToPage("/_Host");
 
 app.Run();

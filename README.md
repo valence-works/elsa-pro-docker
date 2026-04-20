@@ -130,9 +130,36 @@ Example workflow:
 
 Alternatively, for custom implementations, you can extend the `Program.cs` startup code to programmatically create admin users using Elsa's `IUserProvider` and `IRoleProvider` services.
 
+### Mounted configuration file (`/config/config.json`)
+
+Both services load an optional JSON file from `/config/config.json` inside the container. This is the recommended way to supply configuration in Docker environments — it avoids long lists of `-e` flags and keeps secrets out of the process environment.
+
+**Configuration precedence (last-wins):**
+1. `appsettings.json` (baked into the image)
+2. `appsettings.{Environment}.json` (baked into the image)
+3. `/config/config.json` (your mount)
+4. Environment variables (highest precedence)
+
+**Docker run:**
+```bash
+docker run ... -v $(pwd)/config.json:/config/config.json elsa-pro-server
+```
+
+**Docker Compose:**
+```yaml
+volumes:
+  - ./config.json:/config/config.json
+```
+
+A fully annotated template is provided at [`config.example.json`](config.example.json). Copy it, remove the comments, and mount it:
+```bash
+cp config.example.json config.json
+# edit config.json with your values
+```
+
 ### Connection Strings
 
-Configure the database connection in `appsettings.json` or via environment variable:
+Configure the database connection via the mounted config file or an environment variable:
 
 ```bash
 ConnectionStrings__Elsa="Data Source=/app/data/elsa.db"
@@ -162,10 +189,9 @@ services:
       - ELSA_ADMIN_EMAIL=admin@example.com
       - ELSA_ADMIN_PASSWORD=SecurePassword123!
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__Elsa=Data Source=/app/data/elsa.db
-      - Elsa__Identity__SigningKey=change-this-to-a-secure-key-in-production
     volumes:
       - elsa-data:/app/data
+      - ./config.json:/config/config.json  # copy from config.example.json and customise
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
