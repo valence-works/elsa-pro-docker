@@ -10,11 +10,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\cshells\main\src\CShells.Abstractions\CShells.Abstractions.csproj" />
-      <ProjectReference Include="..\..\..\..\cshells\main\src\CShells.AspNetCore.Abstractions\CShells.AspNetCore.Abstractions.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <PackageReference Include="CShells.Abstractions" Version="0.0.14" />
+      <PackageReference Include="CShells.AspNetCore.Abstractions" Version="0.0.14" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.3" />
     </ItemGroup>
 

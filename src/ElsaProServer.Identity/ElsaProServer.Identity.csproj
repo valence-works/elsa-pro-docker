@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Elsa.Identity"/>
-    <PackageReference Include="CShells"/>
-    <PackageReference Include="CShells.FastEndpoints"/>
+    <PackageReference Include="Elsa.Identity" Version="3.7.0-preview.4521"/>
+    <PackageReference Include="CShells" Version="0.0.14"/>
+    <PackageReference Include="CShells.FastEndpoints" Version="0.0.14"/>
   </ItemGroup>
 
   <ItemGroup>
