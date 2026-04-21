@@ -7,40 +7,40 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Elsa" Version="3.7.0-preview.4521"/>
-        <PackageReference Include="Elsa.Persistence.EFCore.Sqlite"  Version="3.7.0-preview.4521"/>
-        <PackageReference Include="Elsa.Http"  Version="3.7.0-preview.4521"/>
-        <PackageReference Include="Elsa.Workflows.Runtime.Distributed" Version="3.7.0-preview.4521"/>
+        <PackageReference Include="Elsa" />
+        <PackageReference Include="Elsa.Persistence.EFCore.Sqlite" />
+        <PackageReference Include="Elsa.Http" />
+        <PackageReference Include="Elsa.Workflows.Runtime.Distributed" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CShells" Version="0.0.14"/>
-        <PackageReference Include="CShells.Abstractions" Version="0.0.14"/>
-        <PackageReference Include="CShells.AspNetCore" Version="0.0.14"/>
-        <PackageReference Include="CShells.AspNetCore.Abstractions" Version="0.0.14"/>
-        <PackageReference Include="CShells.FastEndpoints" Version="0.0.14"/>
+        <PackageReference Include="CShells" />
+        <PackageReference Include="CShells.Abstractions" />
+        <PackageReference Include="CShells.AspNetCore" />
+        <PackageReference Include="CShells.AspNetCore.Abstractions" />
+        <PackageReference Include="CShells.FastEndpoints" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Nuplane" Version="0.0.1"/>
-        <PackageReference Include="Nuplane.Abstractions" Version="0.0.1"/>
-        <PackageReference Include="Nuplane.Loading" Version="0.0.1"/>
-        <PackageReference Include="Nuplane.Loading.Abstractions" Version="0.0.1"/>
-        <PackageReference Include="Nuplane.Loading.Api" Version="0.0.1"/>
-        <PackageReference Include="Nuplane.Sources.Directory" Version="0.0.1"/>
+        <PackageReference Include="Nuplane" />
+        <PackageReference Include="Nuplane.Abstractions" />
+        <PackageReference Include="Nuplane.Loading" />
+        <PackageReference Include="Nuplane.Loading.Abstractions" />
+        <PackageReference Include="Nuplane.Loading.Api" />
+        <PackageReference Include="Nuplane.Sources.Directory" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Elsa.Scheduling.Quartz" Version="3.7.0-preview.229"/>
-        <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.PostgreSql" Version="3.7.0-preview.229"/>
-        <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.Sqlite" Version="3.7.0-preview.229"/>
-        <PackageReference Include="Elsa.ServiceBus.MassTransit" Version="3.7.0-preview.229"/>
-        <PackageReference Include="Elsa.ServiceBus.MassTransit.AzureServiceBus" Version="3.7.0-preview.229"/>
-        <PackageReference Include="Elsa.ServiceBus.MassTransit.RabbitMq" Version="3.7.0-preview.229"/>
+        <PackageReference Include="Elsa.Scheduling.Quartz" />
+        <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.PostgreSql" />
+        <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.Sqlite" />
+        <PackageReference Include="Elsa.ServiceBus.MassTransit" />
+        <PackageReference Include="Elsa.ServiceBus.MassTransit.AzureServiceBus" />
+        <PackageReference Include="Elsa.ServiceBus.MassTransit.RabbitMq" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
     </ItemGroup>
 
     <ItemGroup>

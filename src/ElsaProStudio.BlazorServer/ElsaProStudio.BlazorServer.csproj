@@ -11,12 +11,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Elsa.Studio" Version="3.7.0-preview.1554"/>
-        <PackageReference Include="Elsa.Studio.Core" Version="3.7.0-preview.1554"/>
-        <PackageReference Include="Elsa.Studio.Core.BlazorServer" Version="3.7.0-preview.1554"/>
-        <PackageReference Include="Elsa.Studio.Login" Version="3.7.0-preview.1554"/>
-        <PackageReference Include="Elsa.Studio.Login.BlazorServer" Version="3.7.0-preview.1554"/>
-        <PackageReference Include="Elsa.Studio.Shell" Version="3.7.0-preview.1554"/>
+        <PackageReference Include="Elsa.Studio" />
+        <PackageReference Include="Elsa.Studio.Core" />
+        <PackageReference Include="Elsa.Studio.Core.BlazorServer" />
+        <PackageReference Include="Elsa.Studio.Login" />
+        <PackageReference Include="Elsa.Studio.Login.BlazorServer" />
+        <PackageReference Include="Elsa.Studio.Shell" />
     </ItemGroup>
 
 </Project>

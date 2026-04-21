@@ -1,12 +1,9 @@
 using CShells.AspNetCore.Configuration;
 using CShells.AspNetCore.Extensions;
 using CShells.DependencyInjection;
-using CShells.FastEndpoints.Features;
 using Elsa.Expressions.JavaScript.ShellFeatures;
 using Elsa.Http.ShellFeatures;
 using Elsa.Resilience.ShellFeatures;
-using Elsa.Scheduling.Quartz.Features;
-using Elsa.ServiceBus.MassTransit.Features;
 using Elsa.ShellFeatures;
 using Elsa.Workflows.Api.ShellFeatures;
 using Elsa.Workflows.Management.ShellFeatures;
@@ -41,18 +38,15 @@ builder.AddShells(shells => shells
     .ConfigureAllShells(shell =>
     {
         shell.WithFeatures(
-                typeof(ElsaFeature),
-                typeof(DistributedRuntimeFeature),
-                typeof(WorkflowsApiFeature),
-                typeof(ResilienceFeature),
-                typeof(CachingWorkflowDefinitionsFeature),
-                typeof(CachingWorkflowRuntimeFeature),
-                typeof(JavaScriptFeature),
-                typeof(QuartzSchedulerFeature),
-                typeof(MassTransitWorkflowManagementFeature),
-                typeof(MassTransitWorkflowDispatcherFeature),
-                typeof(HttpCacheFeature))
-            .WithFeature<FastEndpointsFeature>(feature => { feature.EndpointRoutePrefix = "api"; });
+            typeof(ElsaFeature),
+            typeof(DistributedRuntimeFeature),
+            typeof(WorkflowsApiFeature),
+            typeof(ResilienceFeature),
+            typeof(CachingWorkflowDefinitionsFeature),
+            typeof(CachingWorkflowRuntimeFeature),
+            typeof(JavaScriptFeature),
+            typeof(HttpCacheFeature),
+            typeof(ElsaFastEndpointsFeature));
     })
 );
 
