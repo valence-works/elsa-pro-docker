@@ -41,6 +41,8 @@ builder.AddShells(shells => shells
             typeof(ElsaFeature),
             typeof(DistributedRuntimeFeature),
             typeof(WorkflowsApiFeature),
+            typeof(WorkflowManagementFeature),
+            typeof(WorkflowRuntimeFeature),
             typeof(ResilienceFeature),
             typeof(CachingWorkflowDefinitionsFeature),
             typeof(CachingWorkflowRuntimeFeature),

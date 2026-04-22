@@ -1,5 +1,43 @@
-# These services are defined here for convenience only so that we can quickly start a given service for local development.
 services:
+  elsa-server:
+    build:
+      context: .
+      dockerfile: src/ElsaProServer/Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config/elsa-server:/config
+      - elsa-packages:/app/packages
+    depends_on:
+      postgres:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      redis:
+        condition: service_started
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  elsa-studio:
+    build:
+      context: .
+      dockerfile: src/ElsaProStudio.BlazorServer/Dockerfile
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./config/elsa-studio:/config
+    depends_on:
+      elsa-server:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
   postgres:
     image: postgres:latest
     command: -c 'max_connections=2000'
@@ -8,10 +46,10 @@ services:
       POSTGRES_PASSWORD: elsa
       POSTGRES_DB: elsa
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql
     ports:
       - "5432:5432"
-  
+
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
@@ -21,7 +59,7 @@ services:
       - 1433:1433
     volumes:
       - sqlserver_data:/var/opt/mssql
-  
+
   mysql:
     image: mysql:8.0
     container_name: mysql
@@ -34,7 +72,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-  
+
   oracle:
     image: container-registry.oracle.com/database/free:latest
     container_name: oracle-db
@@ -45,20 +83,20 @@ services:
       - "5500:5500"
     volumes:
       - ./data/oracle-data:/opt/oracle/oradata
-  
+
   mongodb:
     image: mongo:latest
     ports:
       - "127.0.0.1:27017:27017"
     volumes:
       - mongodb_data:/data/db
-  
+
   rabbitmq:
     image: "rabbitmq:4-management"
     ports:
       - "15672:15672"
       - "5672:5672"
-  
+
   redis:
     image: redis:latest
     ports:
@@ -80,3 +118,4 @@ volumes:
   postgres-data:
   mysql_data:
   mongodb_data:
+  elsa-packages:

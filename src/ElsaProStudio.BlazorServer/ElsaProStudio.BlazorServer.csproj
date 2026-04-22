@@ -14,8 +14,9 @@
         <PackageReference Include="Elsa.Studio" />
         <PackageReference Include="Elsa.Studio.Core" />
         <PackageReference Include="Elsa.Studio.Core.BlazorServer" />
-        <PackageReference Include="Elsa.Studio.Login" />
-        <PackageReference Include="Elsa.Studio.Login.BlazorServer" />
+        <PackageReference Include="Elsa.Studio.Authentication.ElsaIdentity" />
+        <PackageReference Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorServer" />
+        <PackageReference Include="Elsa.Studio.Authentication.ElsaIdentity.UI" />
         <PackageReference Include="Elsa.Studio.Shell" />
     </ItemGroup>
 

@@ -1,0 +1,41 @@
+{
+  "CShells": {
+    "Shells": [
+      {
+        "Name": "Default",
+        "Features": {
+          "DefaultAdminUser": {
+            "AdminUsername": "admin",
+            "AdminPassword": "foobar",
+            "AdminRoleName": "admin",
+            "AdminRolePermissions": ["*"]
+          },
+          "DefaultAuthentication": {},
+          "Liquid": {},
+          "Identity": {
+            "Name": "",
+            "SigningKey": "CHANGE_ME_TO_A_SECURE_RANDOM_KEY_AT_LEAST_256_BITS"
+          },
+          "PostgreSqlWorkflowPersistence": {
+            "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
+          },
+          "PostgreSqlIdentityPersistence": {
+            "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
+          },
+          "MassTransitRabbitMq": {
+            "ConnectionString": "amqp://guest:guest@rabbitmq:5672/"
+          },
+          "QuartzPostgreSql": {
+            "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
+          },
+          "Http": {
+            "HttpActivityOptions": {
+              "BasePath": "/workflows",
+              "BaseUrl": "http://elsa-server:8080"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
