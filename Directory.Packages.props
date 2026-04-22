@@ -37,11 +37,11 @@
     </ItemGroup>
 
     <ItemGroup Label="CShells">
-        <PackageVersion Include="CShells" Version="0.0.14" />
-        <PackageVersion Include="CShells.Abstractions" Version="0.0.14" />
-        <PackageVersion Include="CShells.AspNetCore" Version="0.0.14" />
-        <PackageVersion Include="CShells.AspNetCore.Abstractions" Version="0.0.14" />
-        <PackageVersion Include="CShells.FastEndpoints" Version="0.0.14" />
+        <PackageVersion Include="CShells" Version="0.0.15-preview.90" />
+        <PackageVersion Include="CShells.Abstractions" Version="0.0.15-preview.90" />
+        <PackageVersion Include="CShells.AspNetCore" Version="0.0.15-preview.90" />
+        <PackageVersion Include="CShells.AspNetCore.Abstractions" Version="0.0.15-preview.90" />
+        <PackageVersion Include="CShells.FastEndpoints" Version="0.0.15-preview.90" />
     </ItemGroup>
 
     <ItemGroup Label="Nuplane">
