@@ -33,7 +33,8 @@
               "BasePath": "/workflows",
               "BaseUrl": "http://elsa-server:8080"
             }
-          }
+          },
+          "SampleEndpoint": {}
         }
       }
     ]

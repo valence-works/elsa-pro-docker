@@ -11,6 +11,7 @@
         <PackageReference Include="Elsa.Persistence.EFCore.Sqlite" />
         <PackageReference Include="Elsa.Http" />
         <PackageReference Include="Elsa.Workflows.Runtime.Distributed" />
+        <PackageReference Include="Elsa.Shells.Api" />
     </ItemGroup>
 
     <ItemGroup>

@@ -14,6 +14,7 @@
         <PackageVersion Include="Elsa.Identity" Version="3.7.0-preview.4524" />
         <PackageVersion Include="Elsa.Persistence.EFCore.Sqlite" Version="3.7.0-preview.4524" />
         <PackageVersion Include="Elsa.Workflows.Runtime.Distributed" Version="3.7.0-preview.4524" />
+        <PackageVersion Include="Elsa.Shells.Api" Version="3.7.0-preview.4524" />
     </ItemGroup>
 
     <ItemGroup Label="Elsa.Extensions">

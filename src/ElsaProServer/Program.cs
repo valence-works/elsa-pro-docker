@@ -5,6 +5,7 @@ using Elsa.Expressions.JavaScript.ShellFeatures;
 using Elsa.Http.ShellFeatures;
 using Elsa.Resilience.ShellFeatures;
 using Elsa.ShellFeatures;
+using Elsa.Shells.Api.ShellFeatures;
 using Elsa.Workflows.Api.ShellFeatures;
 using Elsa.Workflows.Management.ShellFeatures;
 using Elsa.Workflows.Runtime.Distributed.ShellFeatures;
@@ -41,6 +42,7 @@ builder.AddShells(shells => shells
             typeof(ElsaFeature),
             typeof(DistributedRuntimeFeature),
             typeof(WorkflowsApiFeature),
+            typeof(ShellsApiFeature),
             typeof(WorkflowManagementFeature),
             typeof(WorkflowRuntimeFeature),
             typeof(ResilienceFeature),

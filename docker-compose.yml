@@ -7,7 +7,7 @@ services:
       - "8080:8080"
     volumes:
       - ./config/elsa-server:/config
-      - elsa-packages:/app/packages
+      - ./config/elsa-server/packages:/app/packages
     depends_on:
       postgres:
         condition: service_started
@@ -118,4 +118,4 @@ volumes:
   postgres-data:
   mysql_data:
   mongodb_data:
-  elsa-packages:
+  
