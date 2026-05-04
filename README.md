@@ -47,11 +47,57 @@ For more information about Pro and Enterprise tiers, visit [https://elsa-workflo
 
 ## Quick Start
 
+### Using pre-built images from Docker Hub
+
+Pre-built images are published to Docker Hub under the `valenceworks` namespace.
+
+**Pull and run the server:**
+```bash
+docker pull valenceworks/elsa-pro-server:latest
+docker run -d \
+  -p 8080:8080 \
+  -e ELSA_ADMIN_EMAIL=admin@example.com \
+  -e ELSA_ADMIN_PASSWORD=YourSecurePassword123! \
+  -v elsa-data:/app/data \
+  --name elsa-server \
+  valenceworks/elsa-pro-server:latest
+```
+
+**Pull and run the studio:**
+```bash
+docker pull valenceworks/elsa-pro-studio-blazorserver:latest
+docker run -d \
+  -p 8081:8080 \
+  --name elsa-studio \
+  valenceworks/elsa-pro-studio-blazorserver:latest
+```
+
+### Image versioning
+
+Each image is published with multiple tags so you can pin to the level of stability you need:
+
+| Tag pattern | Example | Description |
+|---|---|---|
+| `latest` | `latest` | Most recent build from `main` — always moving |
+| `<version>-preview.<build>` | `1.0.0-preview.42` | Preview build from `main`, auto-increments per push |
+| `<version>` | `1.0.0` | Stable release (from a git tag) |
+| `<major>.<minor>` | `1.0` | Tracks the latest patch within a minor version |
+| `<major>` | `1` | Tracks the latest minor+patch within a major version |
+| `elsa-<elsa-version>` | `elsa-3.8.0-preview.4538` | Latest build targeting a specific Elsa version |
+| `sha-<commit>` | `sha-07169a7` | Pinned to an exact commit |
+
+**Available images:**
+
+| Image | Description |
+|---|---|
+| `valenceworks/elsa-pro-server` | Elsa Pro API server |
+| `valenceworks/elsa-pro-studio-blazorserver` | Elsa Pro Studio (Blazor Server) |
+
 ### Prerequisites
 - Docker 20.10 or later
 - .NET 10.0 SDK (for local development)
 
-### Running with Docker
+### Building from source
 
 1. **Clone the repository:**
 ```bash
@@ -61,7 +107,7 @@ cd elsa-pro-docker
 
 2. **Build the Docker image:**
 ```bash
-docker build -t elsa-pro-server .
+docker build -t elsa-pro-server -f src/ElsaProServer/Dockerfile .
 ```
 
 3. **Run the container:**
