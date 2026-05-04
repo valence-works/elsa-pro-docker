@@ -9,6 +9,7 @@ on:
 
 env:
   REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
+  VERSION: '1.0.0'
 
 jobs:
   prepare:
@@ -52,6 +53,7 @@ jobs:
             type=semver,pattern={{major}}
             type=sha
             type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=${{ env.VERSION }}-preview.${{ github.run_number }},enable={{is_default_branch}}
             type=raw,value=elsa-${{ needs.prepare.outputs.elsa-server-version }},enable=${{ github.event_name == 'push' }}
 
       - name: Log in to Docker Hub
@@ -97,6 +99,7 @@ jobs:
             type=semver,pattern={{major}}
             type=sha
             type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=${{ env.VERSION }}-preview.${{ github.run_number }},enable={{is_default_branch}}
             type=raw,value=elsa-${{ needs.prepare.outputs.elsa-studio-version }},enable=${{ github.event_name == 'push' }}
 
       - name: Log in to Docker Hub
