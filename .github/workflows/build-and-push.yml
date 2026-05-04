@@ -1,0 +1,69 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
+
+jobs:
+  build-and-push-server:
+    name: Build & Push ElsaProServer
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push ElsaProServer
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: src/ElsaProServer/Dockerfile
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+          tags: |
+            ${{ env.REGISTRY }}/elsa-pro-server:latest
+            ${{ env.REGISTRY }}/elsa-pro-server:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  build-and-push-studio:
+    name: Build & Push ElsaProStudio.BlazorServer
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push ElsaProStudio.BlazorServer
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: src/ElsaProStudio.BlazorServer/Dockerfile
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+          tags: |
+            ${{ env.REGISTRY }}/elsa-pro-studio-blazorserver:latest
+            ${{ env.REGISTRY }}/elsa-pro-studio-blazorserver:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
