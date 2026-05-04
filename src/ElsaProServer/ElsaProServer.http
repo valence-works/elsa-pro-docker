@@ -1,6 +1,11 @@
-@ElsaProServer_HostAddress = http://localhost:5176
+@ElsaProServer_HostAddress = http://localhost:8080
 
 GET {{ElsaProServer_HostAddress}}/health
+Accept: application/json
+
+###
+
+GET {{ElsaProServer_HostAddress}}/sample-endpoint
 Accept: application/json
 
 ###

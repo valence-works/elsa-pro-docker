@@ -54,6 +54,7 @@ builder.AddShells(shells => shells
     })
 );
 
+services.AddHostedService<ConfigChangeShellReloader>();
 services.AddAuthentication();
 services.AddAuthorization();
 var allowedOrigins = builder.Configuration.GetSection("Elsa:Cors:AllowedOrigins").Get<string[]>() ?? [];
