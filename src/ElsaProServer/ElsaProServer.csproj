@@ -36,8 +36,6 @@
         <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.PostgreSql" />
         <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.Sqlite" />
         <PackageReference Include="Elsa.ServiceBus.MassTransit" />
-        <PackageReference Include="Elsa.ServiceBus.MassTransit.AzureServiceBus" />
-        <PackageReference Include="Elsa.ServiceBus.MassTransit.RabbitMq" />
     </ItemGroup>
 
     <ItemGroup>

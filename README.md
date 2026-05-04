@@ -1,49 +1,47 @@
 # Elsa Pro Docker
 
-A production-ready Docker deployment for Elsa Workflows Pro & Enterprise edition server with ASP.NET Core.
+A premium, production-ready Docker deployment for Elsa Workflows with hardened infrastructure and enterprise-grade tooling.
 
 ## Overview
 
-This repository provides a containerized Elsa Workflows server implementation with:
-- ASP.NET Core Web API hosting
-- Entity Framework Core with SQLite persistence
-- Workflow management and runtime APIs
-- HTTP activities support
-- JavaScript and Liquid expression support
-- Built-in authentication and identity management
-- Health check endpoints
-- Docker deployment ready
+This repository provides a containerized Elsa Workflows deployment built on .NET 10, including:
+- **Elsa Workflows 3.8** runtime and management APIs
+- **Blazor Server Studio UI** for visual workflow design
+- **SQLite** persistence out of the box
+- **CShells** multi-shell architecture
+- **Nuplane** runtime plugin system — add capabilities (databases, message buses, schedulers, etc.) by configuring NuGet feeds and packages
+- **OpenTelemetry** instrumentation (metrics, traces, logging)
+- **Health check** endpoints for container orchestration
+- **Docker Hub images** with automated CI/CD publishing
 
 ## Features
 
-### Core Capabilities
-- **Workflow Management**: Create, edit, and manage workflows through REST APIs
-- **Workflow Runtime**: Execute workflows with full runtime support
-- **HTTP Activities**: Build HTTP-triggered workflows and webhooks
-- **Expression Languages**: Support for JavaScript and Liquid templating
-- **Identity & Security**: Built-in user management and role-based access control
-- **Persistence**: SQLite database with Entity Framework Core
-- **Health Monitoring**: Health check endpoints for container orchestration
+### What's in the Box
 
-### Pro & Enterprise Tiers
-This deployment is compatible with Elsa Workflows Pro and Enterprise editions, which provide additional features:
+- **Workflow Runtime**: Execute workflows with HTTP triggers and JavaScript/Liquid expressions
+- **Visual Designer**: Blazor Server Studio for building and managing workflows in the browser
+- **Multi-Shell Support**: CShells architecture allows running multiple isolated workflow engines in a single host
+- **Runtime Extensibility**: Nuplane loads NuGet packages at startup — add database providers, message buses, schedulers, and more without rebuilding the image
+- **Identity & Security**: Built-in user management with role-based access control and automatic admin provisioning
+- **Observability**: OpenTelemetry integration for metrics, distributed traces, and structured logging
+- **Health Monitoring**: `/health` and `/alive` endpoints for liveness and readiness probes
 
-**Elsa Pro Features:**
-- Advanced workflow designer UI
-- Enhanced debugging capabilities
-- Priority support
-- Additional activity libraries
-- Advanced scheduling options
+### Extending via Nuplane
 
-**Elsa Enterprise Features:**
-- AI Assistant for workflow development
+The base image ships with SQLite persistence and a minimal feature set. Additional capabilities — PostgreSQL, SQL Server, RabbitMQ, Azure Service Bus, Quartz scheduling, and more — are installed at runtime as NuGet packages via Nuplane.
+
+Configure a package feed and a list of packages in your mounted `config.json`, and Nuplane will download and load them on startup. Available packages and feed sources will be documented separately.
+
+### Roadmap
+
+The following capabilities are planned but not yet available:
+
+- Hardened security defaults and container scanning
 - Multi-tenancy support
-- Advanced integrations (SAP, Salesforce, etc.)
-- High-availability configurations
-- Enterprise-grade SLA
-- Dedicated support team
-
-For more information about Pro and Enterprise tiers, visit [https://elsa-workflows.github.io/elsa-core/](https://elsa-workflows.github.io/elsa-core/)
+- AI-assisted workflow development
+- Enterprise integrations (SAP, Salesforce, etc.)
+- High-availability deployment templates
+- Reverse proxy configuration templates (nginx, Traefik)
 
 ## Quick Start
 
@@ -155,26 +153,13 @@ dotnet run
 | `ASPNETCORE_ENVIRONMENT` | ASP.NET Core environment | Production | No |
 | `ASPNETCORE_URLS` | Server URLs | http://+:8080 | No |
 
-**Note:** The admin email is logged at startup for reference (password is not logged for security). You'll need to create the admin user via the Identity API after the server starts.
+### Admin User Provisioning
 
-### Creating the Super Admin User
+When `ELSA_ADMIN_EMAIL` and `ELSA_ADMIN_PASSWORD` are set, the server automatically creates an admin user at startup with full permissions. The email is logged at startup for reference (the password is not logged).
 
-The environment variable `ELSA_ADMIN_EMAIL` is logged at startup for reference (the password is not logged for security reasons). After the server starts, you can create the admin user using the Elsa Identity management features.
-
-**Note:** Admin user creation via the Identity API requires the Elsa Pro or Enterprise license which includes the full management API. For community edition deployments, you can connect a separate Elsa Studio or Designer application to manage workflows and users.
-
-For Pro/Enterprise deployments with the full API enabled, you would create users via:
+You can also manage users through:
 - The Elsa Studio web application
 - Direct API calls to identity endpoints
-- Custom initialization code using Elsa's identity services
-
-Example workflow:
-1. Start the server with admin credentials in environment variables
-2. The credentials are logged for your reference
-3. Use an Elsa Studio instance to connect to this server
-4. Create the admin user through the Studio UI
-
-Alternatively, for custom implementations, you can extend the `Program.cs` startup code to programmatically create admin users using Elsa's `IUserProvider` and `IRoleProvider` services.
 
 ### Mounted configuration file (`/config/config.json`)
 
@@ -205,11 +190,13 @@ cp config.example.json config.json
 
 ### Connection Strings
 
-Configure the database connection via the mounted config file or an environment variable:
+Configure the database connection via the mounted config file or an environment variable. The default is SQLite:
 
 ```bash
 ConnectionStrings__Elsa="Data Source=/app/data/elsa.db"
 ```
+
+To use a different database (PostgreSQL, SQL Server, etc.), install the corresponding Nuplane package and update the connection string accordingly.
 
 ### Identity Signing Key
 
@@ -219,40 +206,19 @@ For production deployments, set a secure signing key:
 Elsa__Identity__SigningKey="your-secure-256-bit-signing-key-here"
 ```
 
-## Docker Compose Example
+## Docker Compose
 
-Create a `docker-compose.yml` file:
+The included `docker-compose.yml` brings up the server and studio with supporting infrastructure for development:
 
-```yaml
-version: '3.8'
+| Service | Port | Purpose |
+|---------|------|---------|
+| `elsa-server` | 8080 | Elsa Workflows API server |
+| `elsa-studio` | 8081 | Blazor Server workflow designer |
 
-services:
-  elsa-server:
-    build: .
-    ports:
-      - "8080:8080"
-    environment:
-      - ELSA_ADMIN_EMAIL=admin@example.com
-      - ELSA_ADMIN_PASSWORD=SecurePassword123!
-      - ASPNETCORE_ENVIRONMENT=Production
-    volumes:
-      - elsa-data:/app/data
-      - ./config.json:/config/config.json  # copy from config.example.json and customise
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+The compose file also includes optional infrastructure services (PostgreSQL, SQL Server, MySQL, Oracle, MongoDB, RabbitMQ, Redis, SMTP4Dev) for local development and testing. These are not required for the base deployment — the server runs with SQLite out of the box.
 
-volumes:
-  elsa-data:
-```
-
-Run with:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ## API Documentation
@@ -261,7 +227,7 @@ Once running, the Elsa server provides the following endpoints:
 - Base URL: `http://localhost:8080`
 - Health endpoint: `http://localhost:8080/health`
 
-For full API documentation and workflow management, connect an Elsa Studio application or use the Pro/Enterprise management APIs. The server provides HTTP workflow triggers and can execute workflows programmatically.
+For full API documentation and workflow management, connect the Elsa Studio at `http://localhost:8081`.
 
 ## Security Best Practices
 
@@ -272,14 +238,15 @@ For full API documentation and workflow management, connect an Elsa Studio appli
 5. **HTTPS in production**: Use a reverse proxy (nginx, Traefik) with TLS certificates
 6. **Network isolation**: Run in a private network when possible
 7. **Regular updates**: Keep the Elsa packages and base images updated
-8. **Database security**: Use connection strings with authentication for production databases (PostgreSQL, SQL Server)
+8. **Database security**: Use connection strings with authentication for production databases
 
 ## Data Persistence
 
-The SQLite database is stored in `/app/data/elsa.db` by default. To persist data across container restarts:
-- Use a Docker volume (recommended)
-- Mount a host directory
-- Use a different database provider (PostgreSQL, SQL Server, etc.)
+The default database is SQLite, stored at `/app/data/elsa.db`. To persist data across container restarts:
+- Use a Docker volume (recommended): `-v elsa-data:/app/data`
+- Mount a host directory: `-v ./data:/app/data`
+
+For production workloads, install a database provider package via Nuplane (PostgreSQL, SQL Server, etc.) and configure the connection string accordingly.
 
 ## Troubleshooting
 
@@ -289,8 +256,8 @@ Check logs:
 docker logs elsa-server
 ```
 
-### Database locked errors
-Ensure only one container is accessing the SQLite database, or switch to a client-server database like PostgreSQL.
+### Database errors
+If using the default SQLite, ensure the `/app/data` volume is mounted and writable. If using an external database via Nuplane, ensure the database service is running and reachable.
 
 ### Super admin not created
 Verify environment variables are set:
@@ -308,13 +275,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- **Community Edition**: [GitHub Issues](https://github.com/elsa-workflows/elsa-core/issues)
-- **Pro Edition**: Priority email support
-- **Enterprise Edition**: Dedicated support team with SLA
+- [GitHub Issues](https://github.com/valence-works/elsa-pro-docker/issues) — bug reports and feature requests
+- [GitHub Discussions](https://github.com/valence-works/elsa-pro-docker/discussions) — questions and community help
 
 ## Links
 
 - [Elsa Workflows Official Documentation](https://elsa-workflows.github.io/elsa-core/)
 - [Elsa Workflows GitHub](https://github.com/elsa-workflows/elsa-core)
 - [Community Forum](https://github.com/elsa-workflows/elsa-core/discussions)
-
