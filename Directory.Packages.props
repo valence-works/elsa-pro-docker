@@ -45,12 +45,12 @@
     </ItemGroup>
 
     <ItemGroup Label="Nuplane">
-        <PackageVersion Include="Nuplane" Version="0.0.1" />
-        <PackageVersion Include="Nuplane.Abstractions" Version="0.0.1" />
-        <PackageVersion Include="Nuplane.Loading" Version="0.0.1" />
-        <PackageVersion Include="Nuplane.Loading.Abstractions" Version="0.0.1" />
-        <PackageVersion Include="Nuplane.Loading.Api" Version="0.0.1" />
-        <PackageVersion Include="Nuplane.Sources.Directory" Version="0.0.1" />
+        <PackageVersion Include="Nuplane" Version="0.0.3" />
+        <PackageVersion Include="Nuplane.Abstractions" Version="0.0.3" />
+        <PackageVersion Include="Nuplane.Loading" Version="0.0.3" />
+        <PackageVersion Include="Nuplane.Loading.Abstractions" Version="0.0.3" />
+        <PackageVersion Include="Nuplane.Loading.Api" Version="0.0.3" />
+        <PackageVersion Include="Nuplane.Sources.Directory" Version="0.0.3" />
     </ItemGroup>
 
     <ItemGroup Label="Microsoft.Extensions">
@@ -63,11 +63,11 @@
     </ItemGroup>
 
     <ItemGroup Label="OpenTelemetry">
-        <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.2" />
-        <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.15.2" />
-        <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.1" />
-        <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
-        <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.0" />
+        <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3" />
+        <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.15.3" />
+        <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.2" />
+        <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.1" />
+        <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1" />
     </ItemGroup>
 
 </Project>
