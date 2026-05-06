@@ -8,7 +8,6 @@
 
     <ItemGroup>
         <PackageReference Include="Elsa" />
-        <PackageReference Include="Elsa.Persistence.EFCore.Sqlite" />
         <PackageReference Include="Elsa.Http" />
         <PackageReference Include="Elsa.Workflows.Runtime.Distributed" />
         <PackageReference Include="Elsa.Shells.Api" />
@@ -23,19 +22,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Nuplane" />
-        <PackageReference Include="Nuplane.Abstractions" />
-        <PackageReference Include="Nuplane.Loading" />
-        <PackageReference Include="Nuplane.Loading.Abstractions" />
-        <PackageReference Include="Nuplane.Loading.Api" />
-        <PackageReference Include="Nuplane.Sources.Directory" />
+        <ProjectReference Include="/private/tmp/nuplane.iyoflM/src/Nuplane/Nuplane.csproj" />
+        <ProjectReference Include="/private/tmp/nuplane.iyoflM/src/Nuplane.Abstractions/Nuplane.Abstractions.csproj" />
+        <ProjectReference Include="/private/tmp/nuplane.iyoflM/src/Nuplane.Loading/Nuplane.Loading.csproj" />
+        <ProjectReference Include="/private/tmp/nuplane.iyoflM/src/Nuplane.Loading.Abstractions/Nuplane.Loading.Abstractions.csproj" />
+        <ProjectReference Include="/private/tmp/nuplane.iyoflM/src/Nuplane.Loading.Api/Nuplane.Loading.Api.csproj" />
+        <ProjectReference Include="/private/tmp/nuplane.iyoflM/src/Nuplane.Sources.Directory/Nuplane.Sources.Directory.csproj" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Elsa.Scheduling.Quartz" />
         <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.PostgreSql" />
         <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.Sqlite" />
-        <PackageReference Include="Elsa.ServiceBus.MassTransit" />
     </ItemGroup>
 
     <ItemGroup>

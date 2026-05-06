@@ -37,6 +37,13 @@ docker compose up -d
 
 Required env vars (copy `.env.example`): `ELSA_ADMIN_EMAIL`, `ELSA_ADMIN_PASSWORD`.
 
+## Agent Operating Principles
+
+- Do not assume, hide confusion, or flatten uncertainty; surface questions, constraints, and tradeoffs explicitly.
+- Write the minimum code that solves the defined problem; do not add speculative abstractions, features, or cleanup.
+- Touch only the files and behavior required for the task; clean up only issues introduced by your own changes.
+- Define success criteria before implementation, then iterate until the criteria are verified or clearly state what could not be verified.
+
 ## Architecture
 
 Five .NET 10 projects in `src/`:

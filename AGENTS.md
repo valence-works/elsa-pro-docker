@@ -82,7 +82,11 @@ Required environment variables are listed in `.env.example`; at minimum set `ELS
 
 ## Coding Guidelines
 
+- Do not assume, hide confusion, or flatten uncertainty; surface questions, constraints, and tradeoffs explicitly.
+- Define success criteria before implementation, then iterate until the criteria are verified or clearly state what could not be verified.
+- Write the minimum code that solves the defined problem; do not add speculative abstractions, features, or cleanup.
 - Keep changes narrowly scoped to the requested behavior.
+- Touch only the files and behavior required for the task; clean up only issues introduced by your own changes.
 - Preserve the Docker-first deployment assumptions unless explicitly changing deployment behavior.
 - Avoid committing generated build output, local databases, IDE metadata, or temporary package artifacts.
 - Update README/config examples when changing user-facing configuration, ports, environment variables, or Docker behavior.
