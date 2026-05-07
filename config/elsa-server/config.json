@@ -1,8 +1,7 @@
 {
   "CShells": {
-    "Shells": [
-      {
-        "Name": "Default",
+    "Shells": {
+      "Default": {
         "Features": {
           "DefaultAdminUser": {
             "AdminUsername": "admin",
@@ -36,6 +35,6 @@
           "SampleEndpoint": {}
         }
       }
-    ]
+    }
   }
 }

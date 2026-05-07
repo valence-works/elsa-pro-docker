@@ -7,6 +7,7 @@ A premium, production-ready Docker deployment for Elsa Workflows with hardened i
 This repository provides a containerized Elsa Workflows deployment built on .NET 10, including:
 - **Elsa Workflows 3.8 preview** runtime and management APIs
 - **Blazor Server Studio UI** for visual workflow design
+- **Combined server + Studio host** for single-container deployments
 - **Configurable persistence** through CShells shell features and Nuplane-loaded packages
 - **CShells** multi-shell architecture
 - **Nuplane** runtime plugin system — add capabilities (databases, message buses, schedulers, etc.) by configuring NuGet feeds and packages
@@ -96,6 +97,7 @@ Each image is published with multiple tags so you can pin to the level of stabil
 |---|---|
 | `valenceworks/elsa-pro-server` | Elsa Pro API server |
 | `valenceworks/elsa-pro-studio-blazorserver` | Elsa Pro Studio (Blazor Server) |
+| `valenceworks/elsa-pro-combined` | Elsa Pro API server and Studio in one container |
 
 ### Prerequisites
 - Docker 20.10 or later
@@ -114,6 +116,11 @@ cd elsa-pro-docker
 docker build -t elsa-pro-server -f src/ElsaProServer/Dockerfile .
 ```
 
+To build the single-container server + Studio image:
+```bash
+docker build -t elsa-pro-combined -f src/ElsaProCombined/Dockerfile .
+```
+
 3. **Run the container:**
 ```bash
 docker run -d \
@@ -125,8 +132,20 @@ docker run -d \
   elsa-pro-server
 ```
 
-4. **Access the server:**
+To run the single-container server + Studio image:
+```bash
+docker run -d \
+  -p 8080:8080 \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminUsername=admin \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
+  -e CShells__Shells__Default__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here \
+  --name elsa-pro \
+  elsa-pro-combined
+```
+
+4. **Access the server and Studio:**
 - Workflows API: `http://localhost:8080/elsa/api`
+- Studio UI: `http://localhost:8080`
 - Health check: `http://localhost:8080/health`
 
 ### Running Locally (Development)

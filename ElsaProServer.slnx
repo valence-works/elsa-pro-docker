@@ -10,6 +10,8 @@
 
   <Folder Name="/src/">
     <Project Path="src/ElsaProServer/ElsaProServer.csproj" />
+    <Project Path="src/ElsaProCombined/ElsaProCombined.csproj" />
+    <Project Path="src/ElsaProCombined.Client/ElsaProCombined.Client.csproj" />
     <Project Path="src/ElsaProServer.Identity/ElsaProServer.Identity.csproj" />
     <Project Path="src/ElsaProServer.ServiceDefaults/ElsaProServer.ServiceDefaults.csproj" />
     <Project Path="src/ElsaProServer.AppHost/ElsaProServer.AppHost.csproj" />

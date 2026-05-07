@@ -121,3 +121,49 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  build-and-push-combined:
+    name: Build & Push ElsaProCombined
+    runs-on: ubuntu-latest
+    needs: prepare
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/elsa-pro-combined
+          labels: |
+            org.opencontainers.image.title=ElsaProCombined
+            org.opencontainers.image.description=Elsa Pro Server and Studio targeting Elsa ${{ needs.prepare.outputs.elsa-server-version }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=${{ env.VERSION }}-preview.${{ github.run_number }},enable={{is_default_branch}}
+            type=raw,value=elsa-${{ needs.prepare.outputs.elsa-server-version }},enable=${{ github.event_name == 'push' }}
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push ElsaProCombined
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: src/ElsaProCombined/Dockerfile
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

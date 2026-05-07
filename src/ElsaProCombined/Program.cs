@@ -1,7 +1,7 @@
 using CShells.AspNetCore.Configuration;
 using CShells.AspNetCore.Extensions;
+using CShells.AspNetCore.Resolution;
 using CShells.DependencyInjection;
-using CShells.FastEndpoints.Features;
 using Elsa.Expressions.JavaScript.ShellFeatures;
 using Elsa.Http.ShellFeatures;
 using Elsa.Resilience.ShellFeatures;
@@ -11,17 +11,18 @@ using Elsa.Workflows.Api.ShellFeatures;
 using Elsa.Workflows.Management.ShellFeatures;
 using Elsa.Workflows.Runtime.Distributed.ShellFeatures;
 using Elsa.Workflows.Runtime.ShellFeatures;
-using ElsaProServer;
+using ElsaProCombined;
 using Nuplane;
 using Nuplane.Loading.Hosting.Builder;
 using Nuplane.Sources.Directory.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
+builder.WebHost.UseStaticWebAssets();
 builder.Configuration.AddJsonFile("/config/config.json", optional: true, reloadOnChange: true);
+
 var services = builder.Services;
 var configuration = builder.Configuration;
-
 var nuplaneConfiguration = configuration.GetSection("Nuplane");
 
 services.AddNuplane(nuplaneConfiguration, nuplane =>
@@ -31,12 +32,26 @@ services.AddNuplane(nuplaneConfiguration, nuplane =>
 });
 
 services.AddSingleton<NuplaneAssemblyProvider>();
+services.AddSingleton(new WebRoutingShellResolverOptions
+{
+    ExcludePaths =
+    [
+        "/_blazor",
+        "/_framework",
+        "/_content",
+        "/app.css",
+        "/appsettings.json",
+        "/favicon.ico",
+        "/ElsaProCombined.styles.css",
+        "/ElsaProCombined.modules.json"
+    ]
+});
 
 builder.AddShells(shells => shells
     .WithHostAssemblies()
     .WithAssemblyProvider<NuplaneAssemblyProvider>()
     .WithAuthenticationAndAuthorization()
-    .WithConfigurationProvider(builder.Configuration)
+    .WithConfigurationProvider(configuration)
     .ConfigureAllShells(shell =>
     {
         shell.WithFeatures(
@@ -51,7 +66,6 @@ builder.AddShells(shells => shells
             typeof(CachingWorkflowRuntimeFeature),
             typeof(JavaScriptFeature),
             typeof(HttpCacheFeature),
-            typeof(FastEndpointsFeature),
             typeof(ElsaFastEndpointsFeature));
     })
 );
@@ -59,7 +73,8 @@ builder.AddShells(shells => shells
 services.AddHostedService<ConfigChangeShellReloader>();
 services.AddAuthentication();
 services.AddAuthorization();
-var allowedOrigins = builder.Configuration.GetSection("Elsa:Cors:AllowedOrigins").Get<string[]>() ?? [];
+
+var allowedOrigins = configuration.GetSection("Elsa:Cors:AllowedOrigins").Get<string[]>() ?? [];
 
 services.AddCors(cors => cors
     .AddDefaultPolicy(policy =>
@@ -72,12 +87,20 @@ services.AddCors(cors => cors
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
+
 app.UseCors();
+app.UseBlazorFrameworkFiles();
+app.UseStaticFiles();
 app.UseRouting();
 app.MapShells();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapDefaultEndpoints();
+app.MapFallbackToFile("index.html");
 
 app.Run();

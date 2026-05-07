@@ -13,9 +13,8 @@
   //     - ./config.json:/config/config.json
 
   "CShells": {
-    "Shells": [
-      {
-        "Name": "Default",
+    "Shells": {
+      "Default": {
         "Features": {
           "DefaultAdminUser": {
             // Admin user provisioned for this shell.
@@ -44,7 +43,7 @@
           }
         }
       }
-    ]
+    }
   },
 
   "Elsa": {
