@@ -20,11 +20,12 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
+builder.RootComponents.RegisterCustomElsaStudioElements();
 
 var services = builder.Services;
 var configuration = builder.Configuration;
 var backendUrl = configuration.GetValue<string>("Backend:Url") ?? "elsa/api";
-var absoluteBackendUrl = new Uri(new Uri(builder.HostEnvironment.BaseAddress), backendUrl);
+var absoluteBackendUrl = new Uri(new(builder.HostEnvironment.BaseAddress), backendUrl);
 
 var backendApiConfig = new BackendApiConfig
 {

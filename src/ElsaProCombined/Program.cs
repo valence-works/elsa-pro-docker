@@ -2,6 +2,7 @@ using CShells.AspNetCore.Configuration;
 using CShells.AspNetCore.Extensions;
 using CShells.AspNetCore.Resolution;
 using CShells.DependencyInjection;
+using CShells.FastEndpoints.Features;
 using Elsa.Expressions.JavaScript.ShellFeatures;
 using Elsa.Http.ShellFeatures;
 using Elsa.Resilience.ShellFeatures;
@@ -66,6 +67,7 @@ builder.AddShells(shells => shells
             typeof(CachingWorkflowRuntimeFeature),
             typeof(JavaScriptFeature),
             typeof(HttpCacheFeature),
+            typeof(FastEndpointsFeature),
             typeof(ElsaFastEndpointsFeature));
     })
 );
@@ -96,8 +98,8 @@ if (!app.Environment.IsDevelopment())
 app.UseCors();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
-app.UseRouting();
 app.MapShells();
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapDefaultEndpoints();
