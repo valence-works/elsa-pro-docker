@@ -13,7 +13,6 @@
           "DefaultAuthentication": {},
           "Liquid": {},
           "Identity": {
-            "Name": "",
             "SigningKey": "CHANGE_ME_TO_A_SECURE_RANDOM_KEY_AT_LEAST_256_BITS"
           },
           "PostgreSqlWorkflowPersistence": {

@@ -22,12 +22,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="/private/tmp/nuplane.iyoflM/src/Nuplane/Nuplane.csproj" />
-        <ProjectReference Include="/private/tmp/nuplane.iyoflM/src/Nuplane.Abstractions/Nuplane.Abstractions.csproj" />
-        <ProjectReference Include="/private/tmp/nuplane.iyoflM/src/Nuplane.Loading/Nuplane.Loading.csproj" />
-        <ProjectReference Include="/private/tmp/nuplane.iyoflM/src/Nuplane.Loading.Abstractions/Nuplane.Loading.Abstractions.csproj" />
-        <ProjectReference Include="/private/tmp/nuplane.iyoflM/src/Nuplane.Loading.Api/Nuplane.Loading.Api.csproj" />
-        <ProjectReference Include="/private/tmp/nuplane.iyoflM/src/Nuplane.Sources.Directory/Nuplane.Sources.Directory.csproj" />
+        <PackageReference Include="Nuplane" />
+        <PackageReference Include="Nuplane.Abstractions" />
+        <PackageReference Include="Nuplane.Loading" />
+        <PackageReference Include="Nuplane.Loading.Abstractions" />
+        <PackageReference Include="Nuplane.Loading.Api" />
+        <PackageReference Include="Nuplane.Sources.Directory" />
     </ItemGroup>
 
     <ItemGroup>

@@ -37,20 +37,20 @@
     </ItemGroup>
 
     <ItemGroup Label="CShells">
-        <PackageVersion Include="CShells" Version="0.0.18" />
-        <PackageVersion Include="CShells.Abstractions" Version="0.0.18" />
-        <PackageVersion Include="CShells.AspNetCore" Version="0.0.18" />
-        <PackageVersion Include="CShells.AspNetCore.Abstractions" Version="0.0.18" />
-        <PackageVersion Include="CShells.FastEndpoints" Version="0.0.18" />
+        <PackageVersion Include="CShells" Version="0.0.20-preview.111" />
+        <PackageVersion Include="CShells.Abstractions" Version="0.0.20-preview.111" />
+        <PackageVersion Include="CShells.AspNetCore" Version="0.0.20-preview.111" />
+        <PackageVersion Include="CShells.AspNetCore.Abstractions" Version="0.0.20-preview.111" />
+        <PackageVersion Include="CShells.FastEndpoints" Version="0.0.20-preview.111" />
     </ItemGroup>
 
     <ItemGroup Label="Nuplane">
-        <PackageVersion Include="Nuplane" Version="0.0.3" />
-        <PackageVersion Include="Nuplane.Abstractions" Version="0.0.3" />
-        <PackageVersion Include="Nuplane.Loading" Version="0.0.3" />
-        <PackageVersion Include="Nuplane.Loading.Abstractions" Version="0.0.3" />
-        <PackageVersion Include="Nuplane.Loading.Api" Version="0.0.3" />
-        <PackageVersion Include="Nuplane.Sources.Directory" Version="0.0.3" />
+        <PackageVersion Include="Nuplane" Version="0.0.5" />
+        <PackageVersion Include="Nuplane.Abstractions" Version="0.0.5" />
+        <PackageVersion Include="Nuplane.Loading" Version="0.0.5" />
+        <PackageVersion Include="Nuplane.Loading.Abstractions" Version="0.0.5" />
+        <PackageVersion Include="Nuplane.Loading.Api" Version="0.0.5" />
+        <PackageVersion Include="Nuplane.Sources.Directory" Version="0.0.5" />
     </ItemGroup>
 
     <ItemGroup Label="Microsoft.Extensions">
