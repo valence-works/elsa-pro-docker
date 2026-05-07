@@ -12,22 +12,29 @@
   //   volumes:
   //     - ./config.json:/config/config.json
 
-  "ConnectionStrings": {
-    // Override the database connection string.
-    // SQLite:     "Data Source=/app/data/elsa.db"
-    // PostgreSQL: "Host=db;Database=elsa;Username=elsa;Password=secret"
-    // SQL Server: "Server=db;Database=elsa;User Id=sa;Password=secret"
-    "Elsa": "Data Source=/app/data/elsa.db"
-  },
-
   "CShells": {
     "Shells": [
       {
         "Name": "Default",
         "Features": {
+          "DefaultAdminUser": {
+            // Admin user provisioned for this shell.
+            "AdminUsername": "admin",
+            "AdminPassword": "ChangeThisPassword123!",
+            "AdminRoleName": "admin",
+            "AdminRolePermissions": ["*"]
+          },
           "Identity": {
             // Must be changed to a securely generated random value (256-bit minimum) in production.
             "SigningKey": "CHANGE_ME_TO_A_SECURE_RANDOM_KEY"
+          },
+          "PostgreSqlWorkflowPersistence": {
+            // Enable this feature when the PostgreSQL persistence package is available.
+            "ConnectionString": "Host=db;Port=5432;Database=elsa;Username=elsa;Password=secret"
+          },
+          "PostgreSqlIdentityPersistence": {
+            // Enable this feature when the PostgreSQL identity persistence package is available.
+            "ConnectionString": "Host=db;Port=5432;Database=elsa;Username=elsa;Password=secret"
           },
           "Http": {
             "HttpActivityOptions": {

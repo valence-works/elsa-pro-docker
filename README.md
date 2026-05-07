@@ -5,9 +5,9 @@ A premium, production-ready Docker deployment for Elsa Workflows with hardened i
 ## Overview
 
 This repository provides a containerized Elsa Workflows deployment built on .NET 10, including:
-- **Elsa Workflows 3.8** runtime and management APIs
+- **Elsa Workflows 3.8 preview** runtime and management APIs
 - **Blazor Server Studio UI** for visual workflow design
-- **SQLite** persistence out of the box
+- **Configurable persistence** through CShells shell features and Nuplane-loaded packages
 - **CShells** multi-shell architecture
 - **Nuplane** runtime plugin system — add capabilities (databases, message buses, schedulers, etc.) by configuring NuGet feeds and packages
 - **OpenTelemetry** instrumentation (metrics, traces, logging)
@@ -22,13 +22,13 @@ This repository provides a containerized Elsa Workflows deployment built on .NET
 - **Visual Designer**: Blazor Server Studio for building and managing workflows in the browser
 - **Multi-Shell Support**: CShells architecture allows running multiple isolated workflow engines in a single host
 - **Runtime Extensibility**: Nuplane loads NuGet packages at startup — add database providers, message buses, schedulers, and more without rebuilding the image
-- **Identity & Security**: Built-in user management with role-based access control and automatic admin provisioning
+- **Identity & Security**: Built-in user management with role-based access control and per-shell admin provisioning
 - **Observability**: OpenTelemetry integration for metrics, distributed traces, and structured logging
 - **Health Monitoring**: `/health` and `/alive` endpoints for liveness and readiness probes
 
 ### Extending via Nuplane
 
-The base image ships with SQLite persistence and a minimal feature set. Additional capabilities — PostgreSQL, SQL Server, RabbitMQ, Azure Service Bus, Quartz scheduling, and more — are installed at runtime as NuGet packages via Nuplane.
+The base image ships with a minimal feature set. Additional capabilities — PostgreSQL, SQL Server, RabbitMQ, Azure Service Bus, Quartz scheduling, and more — are installed at runtime as NuGet packages via Nuplane and enabled per shell through CShells feature configuration.
 
 Configure a package feed and a list of packages in your mounted `config.json`, and Nuplane will download and load them on startup. Available packages and feed sources will be documented separately.
 
@@ -54,9 +54,9 @@ Pre-built images are published to Docker Hub under the `valenceworks` namespace.
 docker pull valenceworks/elsa-pro-server:latest
 docker run -d \
   -p 8080:8080 \
-  -e ELSA_ADMIN_EMAIL=admin@example.com \
-  -e ELSA_ADMIN_PASSWORD=YourSecurePassword123! \
-  -v elsa-data:/app/data \
+  -e CShells__Shells__0__Features__DefaultAdminUser__AdminUsername=admin \
+  -e CShells__Shells__0__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
+  -e CShells__Shells__0__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here \
   --name elsa-server \
   valenceworks/elsa-pro-server:latest
 ```
@@ -112,9 +112,9 @@ docker build -t elsa-pro-server -f src/ElsaProServer/Dockerfile .
 ```bash
 docker run -d \
   -p 8080:8080 \
-  -e ELSA_ADMIN_EMAIL=admin@example.com \
-  -e ELSA_ADMIN_PASSWORD=YourSecurePassword123! \
-  -v elsa-data:/app/data \
+  -e CShells__Shells__0__Features__DefaultAdminUser__AdminUsername=admin \
+  -e CShells__Shells__0__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
+  -e CShells__Shells__0__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here \
   --name elsa-server \
   elsa-pro-server
 ```
@@ -130,10 +130,11 @@ docker run -d \
 dotnet restore
 ```
 
-2. **Set environment variables:**
+2. **Optionally override the default shell admin user and signing key:**
 ```bash
-export ELSA_ADMIN_EMAIL=admin@example.com
-export ELSA_ADMIN_PASSWORD=YourSecurePassword123!
+export CShells__Shells__0__Features__DefaultAdminUser__AdminUsername=admin
+export CShells__Shells__0__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123!
+export CShells__Shells__0__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here
 ```
 
 3. **Run the application:**
@@ -148,14 +149,39 @@ dotnet run
 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `ELSA_ADMIN_EMAIL` | Super admin email/username | - | Recommended |
-| `ELSA_ADMIN_PASSWORD` | Super admin password | - | Recommended |
+| `CShells__Shells__0__Features__DefaultAdminUser__AdminUsername` | Default shell admin username | `admin` | Recommended override |
+| `CShells__Shells__0__Features__DefaultAdminUser__AdminPassword` | Default shell admin password | `password` | Recommended override |
+| `CShells__Shells__0__Features__DefaultAdminUser__AdminRoleName` | Default shell admin role name | `admin` | No |
+| `CShells__Shells__0__Features__Identity__SigningKey` | Default shell identity signing key | Placeholder | Yes for production |
+| `Elsa__Cors__AllowedOrigins__0` | First allowed CORS origin | appsettings value | No |
 | `ASPNETCORE_ENVIRONMENT` | ASP.NET Core environment | Production | No |
 | `ASPNETCORE_URLS` | Server URLs | http://+:8080 | No |
 
 ### Admin User Provisioning
 
-When `ELSA_ADMIN_EMAIL` and `ELSA_ADMIN_PASSWORD` are set, the server automatically creates an admin user at startup with full permissions. The email is logged at startup for reference (the password is not logged).
+Admin users are configured per shell. The default shell uses the `DefaultAdminUser` feature:
+
+```json
+{
+  "CShells": {
+    "Shells": [
+      {
+        "Name": "Default",
+        "Features": {
+          "DefaultAdminUser": {
+            "AdminUsername": "admin",
+            "AdminPassword": "YourSecurePassword123!",
+            "AdminRoleName": "admin",
+            "AdminRolePermissions": ["*"]
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+The old `ELSA_ADMIN_EMAIL` variable is not used. There is also an `AdminUserFeature` implementation that reads `ELSA_ADMIN_USER` and `ELSA_ADMIN_PASSWORD`, but it only runs when that shell feature is enabled; the default configuration uses `DefaultAdminUser` instead.
 
 You can also manage users through:
 - The Elsa Studio web application
@@ -190,20 +216,36 @@ cp config.example.json config.json
 
 ### Connection Strings
 
-Configure the database connection via the mounted config file or an environment variable. The default is SQLite:
+Configure database providers per shell through feature configuration. The checked-in Docker Compose configuration enables PostgreSQL workflow and identity persistence for the default shell:
 
-```bash
-ConnectionStrings__Elsa="Data Source=/app/data/elsa.db"
+```json
+{
+  "CShells": {
+    "Shells": [
+      {
+        "Name": "Default",
+        "Features": {
+          "PostgreSqlWorkflowPersistence": {
+            "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
+          },
+          "PostgreSqlIdentityPersistence": {
+            "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
+          }
+        }
+      }
+    ]
+  }
+}
 ```
 
-To use a different database (PostgreSQL, SQL Server, etc.), install the corresponding Nuplane package and update the connection string accordingly.
+To use a different database, install or load the corresponding Nuplane package and enable the matching shell feature with its connection string.
 
 ### Identity Signing Key
 
 For production deployments, set a secure signing key:
 
 ```bash
-Elsa__Identity__SigningKey="your-secure-256-bit-signing-key-here"
+CShells__Shells__0__Features__Identity__SigningKey="your-secure-256-bit-signing-key-here"
 ```
 
 ## Docker Compose
@@ -215,7 +257,7 @@ The included `docker-compose.yml` brings up the server and studio with supportin
 | `elsa-server` | 8080 | Elsa Workflows API server |
 | `elsa-studio` | 8081 | Blazor Server workflow designer |
 
-The compose file also includes optional infrastructure services (PostgreSQL, SQL Server, MySQL, Oracle, MongoDB, RabbitMQ, Redis, SMTP4Dev) for local development and testing. These are not required for the base deployment — the server runs with SQLite out of the box.
+The compose file starts the server and Studio plus local infrastructure services (PostgreSQL, SQL Server, MySQL, Oracle, MongoDB, RabbitMQ, Redis, SMTP4Dev) for development and testing. The checked-in server config mounted from `config/elsa-server/config.json` currently enables PostgreSQL persistence, RabbitMQ messaging, Quartz PostgreSQL scheduling, and the sample endpoint for the default shell.
 
 ```bash
 docker compose up -d
@@ -231,9 +273,9 @@ For full API documentation and workflow management, connect the Elsa Studio at `
 
 ## Security Best Practices
 
-1. **Generate a secure signing key**: The `Elsa__Identity__SigningKey` must be set to a secure randomly generated value (256-bit minimum). Never use the placeholder value in production.
-2. **Configure CORS properly**: By default, CORS allows all origins (*) for development convenience. In production, set `Elsa__Cors__AllowedOrigins` to specific trusted domains only.
-3. **Change default credentials**: Always set strong passwords for the admin account
+1. **Generate a secure signing key**: The default shell's `CShells__Shells__0__Features__Identity__SigningKey` must be set to a secure randomly generated value (256-bit minimum). Never use the placeholder value in production.
+2. **Configure CORS properly**: CORS origins are read from `Elsa:Cors:AllowedOrigins`. Use `*` only for development; in production, set specific trusted domains only.
+3. **Change default credentials**: Always override the default shell admin username and password.
 4. **Use environment variables**: Never commit credentials or keys in code or configuration files
 5. **HTTPS in production**: Use a reverse proxy (nginx, Traefik) with TLS certificates
 6. **Network isolation**: Run in a private network when possible
@@ -242,9 +284,9 @@ For full API documentation and workflow management, connect the Elsa Studio at `
 
 ## Data Persistence
 
-The default database is SQLite, stored at `/app/data/elsa.db`. To persist data across container restarts:
-- Use a Docker volume (recommended): `-v elsa-data:/app/data`
-- Mount a host directory: `-v ./data:/app/data`
+The active persistence location depends on the shell persistence feature you enable. With the checked-in Docker Compose configuration, workflow and identity data are stored in PostgreSQL. If you configure SQLite with `Data Source=/data/elsa.db`, persist it across container restarts with:
+- Use a Docker volume (recommended): `-v elsa-data:/data`
+- Mount a host directory: `-v ./data:/data`
 
 For production workloads, install a database provider package via Nuplane (PostgreSQL, SQL Server, etc.) and configure the connection string accordingly.
 
@@ -257,12 +299,12 @@ docker logs elsa-server
 ```
 
 ### Database errors
-If using the default SQLite, ensure the `/app/data` volume is mounted and writable. If using an external database via Nuplane, ensure the database service is running and reachable.
+Ensure the configured shell persistence provider is loaded, enabled, and reachable. For the checked-in Compose setup, verify PostgreSQL is running and the default shell connection strings point to `Host=postgres`.
 
 ### Super admin not created
-Verify environment variables are set:
+Verify the default shell's `DefaultAdminUser` feature is configured in the mounted config file or environment:
 ```bash
-docker exec elsa-server printenv | grep ELSA
+docker exec elsa-server printenv | grep 'CShells__Shells__0__Features__DefaultAdminUser'
 ```
 
 ## Contributing
