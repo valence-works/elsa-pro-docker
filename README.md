@@ -52,7 +52,9 @@ Pre-built images are published to Docker Hub under the `valenceworks` namespace.
 **Pull and run the server:**
 ```bash
 docker pull valenceworks/elsa-pro-server:latest
+docker network create elsa
 docker run -d \
+  --network elsa \
   -p 8080:8080 \
   -e CShells__Shells__0__Features__DefaultAdminUser__AdminUsername=admin \
   -e CShells__Shells__0__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
@@ -65,10 +67,14 @@ docker run -d \
 ```bash
 docker pull valenceworks/elsa-pro-studio-blazorserver:latest
 docker run -d \
+  --network elsa \
   -p 8081:8080 \
+  -e Backend__Url=http://elsa-server:8080/elsa/api \
   --name elsa-studio \
   valenceworks/elsa-pro-studio-blazorserver:latest
 ```
+
+The Studio container calls the server from inside the Docker network, so use the server container name (`elsa-server`) and the container port (`8080`) in `Backend__Url`. Open Studio from the host at `http://localhost:8081`.
 
 ### Image versioning
 
@@ -112,9 +118,9 @@ docker build -t elsa-pro-server -f src/ElsaProServer/Dockerfile .
 ```bash
 docker run -d \
   -p 8080:8080 \
-  -e CShells__Shells__0__Features__DefaultAdminUser__AdminUsername=admin \
-  -e CShells__Shells__0__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
-  -e CShells__Shells__0__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminUsername=admin \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
+  -e CShells__Shells__Default__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here \
   --name elsa-server \
   elsa-pro-server
 ```
@@ -149,10 +155,10 @@ dotnet run
 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `CShells__Shells__0__Features__DefaultAdminUser__AdminUsername` | Default shell admin username | `admin` | Recommended override |
-| `CShells__Shells__0__Features__DefaultAdminUser__AdminPassword` | Default shell admin password | `password` | Recommended override |
-| `CShells__Shells__0__Features__DefaultAdminUser__AdminRoleName` | Default shell admin role name | `admin` | No |
-| `CShells__Shells__0__Features__Identity__SigningKey` | Default shell identity signing key | Placeholder | Yes for production |
+| `CShells__Shells__Default__Features__DefaultAdminUser__AdminUsername` | Default shell admin username | `admin` | Recommended override |
+| `CShells__Shells__Default__Features__DefaultAdminUser__AdminPassword` | Default shell admin password | `password` | Recommended override |
+| `CShells__Shells__Default__Features__DefaultAdminUser__AdminRoleName` | Default shell admin role name | `admin` | No |
+| `CShells__Shells__Default__Features__Identity__SigningKey` | Default shell identity signing key | Placeholder | Yes for production |
 | `Elsa__Cors__AllowedOrigins__0` | First allowed CORS origin | appsettings value | No |
 | `ASPNETCORE_ENVIRONMENT` | ASP.NET Core environment | Production | No |
 | `ASPNETCORE_URLS` | Server URLs | http://+:8080 | No |
@@ -164,28 +170,30 @@ Admin users are configured per shell. The default shell uses the `DefaultAdminUs
 ```json
 {
   "CShells": {
-    "Shells": [
-      {
-        "Name": "Default",
+    "Shells": {
+      "Default": {
         "Features": {
           "DefaultAdminUser": {
             "AdminUsername": "admin",
             "AdminPassword": "YourSecurePassword123!",
             "AdminRoleName": "admin",
-            "AdminRolePermissions": ["*"]
+            "AdminRolePermissions": [
+              "*"
+            ]
           }
         }
       }
-    ]
+    }
   }
 }
 ```
 
-The old `ELSA_ADMIN_EMAIL` variable is not used. There is also an `AdminUserFeature` implementation that reads `ELSA_ADMIN_USER` and `ELSA_ADMIN_PASSWORD`, but it only runs when that shell feature is enabled; the default configuration uses `DefaultAdminUser` instead.
-
 You can also manage users through:
-- The Elsa Studio web application
 - Direct API calls to identity endpoints
+
+Coming:
+
+- Manage users, roles and permissions from the Elsa Studio web application
 
 ### Mounted configuration file (`/config/config.json`)
 
@@ -221,9 +229,8 @@ Configure database providers per shell through feature configuration. The checke
 ```json
 {
   "CShells": {
-    "Shells": [
-      {
-        "Name": "Default",
+    "Shells": {
+      "Default": {
         "Features": {
           "PostgreSqlWorkflowPersistence": {
             "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
@@ -233,19 +240,19 @@ Configure database providers per shell through feature configuration. The checke
           }
         }
       }
-    ]
+    }
   }
 }
 ```
 
-To use a different database, install or load the corresponding Nuplane package and enable the matching shell feature with its connection string.
+To use a different database, install or load the corresponding package and enable the matching shell feature with its connection string.
 
 ### Identity Signing Key
 
 For production deployments, set a secure signing key:
 
 ```bash
-CShells__Shells__0__Features__Identity__SigningKey="your-secure-256-bit-signing-key-here"
+CShells__Shells__Default__Features__Identity__SigningKey="your-secure-256-bit-signing-key-here"
 ```
 
 ## Docker Compose
@@ -258,6 +265,8 @@ The included `docker-compose.yml` brings up the server and studio with supportin
 | `elsa-studio` | 8081 | Blazor Server workflow designer |
 
 The compose file starts the server and Studio plus local infrastructure services (PostgreSQL, SQL Server, MySQL, Oracle, MongoDB, RabbitMQ, Redis, SMTP4Dev) for development and testing. The checked-in server config mounted from `config/elsa-server/config.json` currently enables PostgreSQL persistence, RabbitMQ messaging, Quartz PostgreSQL scheduling, and the sample endpoint for the default shell.
+
+In Docker Compose, Studio gets its backend URL from `config/elsa-studio/config.json`, which points to `http://elsa-server:8080/elsa/api` on the Compose network.
 
 ```bash
 docker compose up -d
