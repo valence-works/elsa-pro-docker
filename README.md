@@ -6,8 +6,8 @@ A premium, production-ready Docker deployment for Elsa Workflows with hardened i
 
 This repository provides a containerized Elsa Workflows deployment built on .NET 10, including:
 - **Elsa Workflows 3.8 preview** runtime and management APIs
-- **Blazor Server Studio UI** for visual workflow design
-- **Combined server + Studio host** for single-container deployments
+- **Elsa Studio UI** for visual workflow design, available as Blazor Server or Blazor WebAssembly
+- **Combined server + Blazor WebAssembly Studio host** for single-container deployments
 - **Configurable persistence** through CShells shell features and Nuplane-loaded packages
 - **CShells** multi-shell architecture
 - **Nuplane** runtime plugin system — add capabilities (databases, message buses, schedulers, etc.) by configuring NuGet feeds and packages
@@ -20,7 +20,7 @@ This repository provides a containerized Elsa Workflows deployment built on .NET
 ### What's in the Box
 
 - **Workflow Runtime**: Execute workflows with HTTP triggers and JavaScript/Liquid expressions
-- **Visual Designer**: Blazor Server Studio for building and managing workflows in the browser
+- **Visual Designer**: Elsa Studio for building and managing workflows in the browser
 - **Multi-Shell Support**: CShells architecture allows running multiple isolated workflow engines in a single host
 - **Runtime Extensibility**: Nuplane loads NuGet packages at startup — add database providers, message buses, schedulers, and more without rebuilding the image
 - **Identity & Security**: Built-in user management with role-based access control and per-shell admin provisioning
@@ -97,7 +97,55 @@ Each image is published with multiple tags so you can pin to the level of stabil
 |---|---|
 | `valenceworks/elsa-pro-server` | Elsa Pro API server |
 | `valenceworks/elsa-pro-studio-blazorserver` | Elsa Pro Studio (Blazor Server) |
-| `valenceworks/elsa-pro-combined` | Elsa Pro API server and Studio in one container |
+| `valenceworks/elsa-pro-combined` | Elsa Pro API server and Studio in one container (Blazor WebAssembly by default; Blazor Server configurable) |
+
+### Choosing Blazor Server or Blazor WebAssembly Studio
+
+Elsa Studio can run as either Blazor Server or Blazor WebAssembly. For separate server and Studio deployments, choose the matching Studio image. For the combined image, set `Studio__HostingModel` to `WebAssembly` or `BlazorServer`; the default is `WebAssembly`.
+
+| Hosting model | Use when | Image or Dockerfile | URL shape |
+|---|---|---|---|
+| Blazor Server | You want server-side Studio interactivity, either separately or in the combined image | `valenceworks/elsa-pro-studio-blazorserver`, `src/ElsaProStudio.BlazorServer/Dockerfile`, or `valenceworks/elsa-pro-combined` with `Studio__HostingModel=BlazorServer` | Separate Studio on `http://localhost:8081`, or combined API and Studio on `http://localhost:8080` |
+| Blazor WebAssembly | You want browser-side Studio interactivity in the single-container image | `valenceworks/elsa-pro-combined`, `src/ElsaProCombined/Dockerfile`, or `Studio__HostingModel=WebAssembly` | API and Studio share one origin, e.g. `http://localhost:8080` |
+
+Use **Blazor Server** by running `elsa-pro-server` and `elsa-pro-studio-blazorserver` together:
+
+```bash
+docker run -d \
+  --network elsa \
+  -p 8081:8080 \
+  -e Backend__Url=http://elsa-server:8080/elsa/api \
+  --name elsa-studio \
+  valenceworks/elsa-pro-studio-blazorserver:latest
+```
+
+Use **Blazor WebAssembly** by running the combined image instead:
+
+```bash
+docker run -d \
+  -p 8080:8080 \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminUsername=admin \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
+  -e CShells__Shells__Default__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here \
+  --name elsa-pro \
+  valenceworks/elsa-pro-combined:latest
+```
+
+Use **Blazor Server** in the combined image by setting `Studio__HostingModel`:
+
+```bash
+docker run -d \
+  -p 8080:8080 \
+  -e Studio__HostingModel=BlazorServer \
+  -e Backend__Url=http://localhost:8080/elsa/api \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminUsername=admin \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
+  -e CShells__Shells__Default__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here \
+  --name elsa-pro \
+  valenceworks/elsa-pro-combined:latest
+```
+
+The checked-in `docker-compose.yml` uses the separate Blazor Server Studio container. To use a single combined service with Compose, replace the separate `elsa-server` and `elsa-studio` services with a service built from `src/ElsaProCombined/Dockerfile` or using `valenceworks/elsa-pro-combined`, then set `Studio__HostingModel` if you want `BlazorServer` instead of the default `WebAssembly`.
 
 ### Prerequisites
 - Docker 20.10 or later
