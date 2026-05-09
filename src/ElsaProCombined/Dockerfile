@@ -7,6 +7,9 @@ COPY ElsaProServer.sln ./
 
 COPY src/ElsaProCombined/ElsaProCombined.csproj src/ElsaProCombined/
 COPY src/ElsaProCombined.Client/ElsaProCombined.Client.csproj src/ElsaProCombined.Client/
+COPY src/ElsaProServer.Hosting/ElsaProServer.Hosting.csproj src/ElsaProServer.Hosting/
+COPY src/ElsaProStudio.Server/ElsaProStudio.Server.csproj src/ElsaProStudio.Server/
+COPY src/ElsaProStudio.Shared/ElsaProStudio.Shared.csproj src/ElsaProStudio.Shared/
 COPY src/ElsaProServer.Identity/ElsaProServer.Identity.csproj src/ElsaProServer.Identity/
 COPY src/ElsaProServer.ServiceDefaults/ElsaProServer.ServiceDefaults.csproj src/ElsaProServer.ServiceDefaults/
 
@@ -14,6 +17,9 @@ RUN dotnet restore src/ElsaProCombined/ElsaProCombined.csproj
 
 COPY src/ElsaProCombined/ src/ElsaProCombined/
 COPY src/ElsaProCombined.Client/ src/ElsaProCombined.Client/
+COPY src/ElsaProServer.Hosting/ src/ElsaProServer.Hosting/
+COPY src/ElsaProStudio.Server/ src/ElsaProStudio.Server/
+COPY src/ElsaProStudio.Shared/ src/ElsaProStudio.Shared/
 COPY src/ElsaProServer.Identity/ src/ElsaProServer.Identity/
 COPY src/ElsaProServer.ServiceDefaults/ src/ElsaProServer.ServiceDefaults/
 

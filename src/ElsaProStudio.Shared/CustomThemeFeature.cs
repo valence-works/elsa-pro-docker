@@ -1,7 +1,7 @@
 using Elsa.Studio.Abstractions;
 using Elsa.Studio.Contracts;
 
-namespace ElsaProCombined.Client;
+namespace ElsaProStudio.Shared;
 
 public class CustomThemeFeature(IThemeService themeService) : FeatureBase
 {

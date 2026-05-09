@@ -27,7 +27,7 @@ services:
   elsa-studio:
     build:
       context: .
-      dockerfile: src/ElsaProStudio.BlazorServer/Dockerfile
+      dockerfile: src/ElsaProStudio/Dockerfile
     ports:
       - "8081:8080"
     volumes:

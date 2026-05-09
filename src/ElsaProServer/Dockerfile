@@ -8,10 +8,11 @@ COPY ElsaProServer.sln ./
 
 # Copy all project files for restore
 COPY src/ElsaProServer/ElsaProServer.csproj src/ElsaProServer/
+COPY src/ElsaProServer.Hosting/ElsaProServer.Hosting.csproj src/ElsaProServer.Hosting/
 COPY src/ElsaProServer.Identity/ElsaProServer.Identity.csproj src/ElsaProServer.Identity/
 COPY src/ElsaProServer.ServiceDefaults/ElsaProServer.ServiceDefaults.csproj src/ElsaProServer.ServiceDefaults/
 COPY src/SamplePackage/SamplePackage.csproj src/SamplePackage/
-COPY src/ElsaProStudio.BlazorServer/ElsaProStudio.BlazorServer.csproj src/ElsaProStudio.BlazorServer/
+COPY src/ElsaProStudio/ElsaProStudio.csproj src/ElsaProStudio/
 COPY src/ElsaProServer.AppHost/ElsaProServer.AppHost.csproj src/ElsaProServer.AppHost/
 
 # Restore dependencies
@@ -19,6 +20,7 @@ RUN dotnet restore src/ElsaProServer/ElsaProServer.csproj
 
 # Copy source code
 COPY src/ElsaProServer/ src/ElsaProServer/
+COPY src/ElsaProServer.Hosting/ src/ElsaProServer.Hosting/
 COPY src/ElsaProServer.Identity/ src/ElsaProServer.Identity/
 COPY src/ElsaProServer.ServiceDefaults/ src/ElsaProServer.ServiceDefaults/
 

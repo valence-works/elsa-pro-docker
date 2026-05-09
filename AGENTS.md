@@ -7,14 +7,14 @@ Guidance for coding agents working in this repository.
 This repository packages Elsa Workflows 3.x as production-ready Docker images:
 
 - `valenceworks/elsa-pro-server`: Elsa runtime and management API.
-- `valenceworks/elsa-pro-studio`: Blazor Server workflow designer UI.
+- `valenceworks/elsa-pro-studio`: Unified Studio workflow designer UI.
 
 The codebase targets .NET 10 and is organized around a Docker-first deployment model. There are currently no dedicated test projects; validate changes with builds and, when relevant, by running the Docker stack.
 
 ## Repository Layout
 
 - `src/ElsaProServer`: Elsa runtime API server, Docker image, CShells/Nuplane configuration.
-- `src/ElsaProStudio.BlazorServer`: Blazor Server Studio UI and Docker image.
+- `src/ElsaProStudio`: Unified Studio UI and Docker image.
 - `src/ElsaProServer.Identity`: Identity, roles, and admin user provisioning.
 - `src/ElsaProServer.ServiceDefaults`: Shared Aspire service defaults, observability, health checks, resilience.
 - `src/ElsaProServer.AppHost`: Aspire local orchestration host.
@@ -33,7 +33,7 @@ dotnet build src/ElsaProServer/ElsaProServer.csproj
 Build the Studio UI:
 
 ```bash
-dotnet build src/ElsaProStudio.BlazorServer/ElsaProStudio.BlazorServer.csproj
+dotnet build src/ElsaProStudio/ElsaProStudio.csproj
 ```
 
 Run the server locally:
@@ -47,7 +47,7 @@ Build Docker images:
 
 ```bash
 docker build -t elsa-pro-server -f src/ElsaProServer/Dockerfile .
-docker build -t elsa-pro-studio -f src/ElsaProStudio.BlazorServer/Dockerfile .
+docker build -t elsa-pro-studio -f src/ElsaProStudio/Dockerfile .
 ```
 
 Run the full development stack:
@@ -99,7 +99,7 @@ Required environment variables are listed in `.env.example`; at minimum set `ELS
 Use the narrowest validation that exercises the change:
 
 - For server changes: `dotnet build src/ElsaProServer/ElsaProServer.csproj`.
-- For Studio changes: `dotnet build src/ElsaProStudio.BlazorServer/ElsaProStudio.BlazorServer.csproj`.
+- For Studio changes: `dotnet build src/ElsaProStudio/ElsaProStudio.csproj`.
 - For shared package or dependency changes: build affected projects or the solution.
 - For Docker/runtime configuration changes: build the relevant image and/or run `docker compose up -d`.
 

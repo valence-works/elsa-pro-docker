@@ -1,9 +1,9 @@
 using CShells.Features;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Quartz.Logging;
 
-namespace ElsaProCombined;
+namespace ElsaProServer.Hosting;
 
 /// <summary>
 /// Keeps Quartz logging bound to the currently active shell service provider.
@@ -21,12 +21,10 @@ internal sealed class QuartzLoggingShellFeature : IShellFeature, IPostConfigureS
 {
     private const string ContainerConfigurationProcessorTypeName = "Quartz.ContainerConfigurationProcessor";
 
-    /// <inheritdoc />
     public void ConfigureServices(IServiceCollection services)
     {
     }
 
-    /// <inheritdoc />
     public void PostConfigureServices(IServiceCollection services)
     {
         var descriptor = services.FirstOrDefault(x => x.ServiceType.FullName == ContainerConfigurationProcessorTypeName);

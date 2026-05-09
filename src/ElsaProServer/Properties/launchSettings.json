@@ -20,9 +20,7 @@
       "applicationUrl": "https://localhost:7292;http://localhost:5176",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_URLS": "https://localhost:7292",
-        "ELSA_ADMIN_PASSWORD": "password",
-        "ELSA_ADMIN_USER": "proadmin"
+        "ASPNETCORE_URLS": "https://localhost:7292"
       }
     }
   }

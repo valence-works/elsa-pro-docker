@@ -1,8 +1,14 @@
 using CShells.Lifecycle;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 
-namespace ElsaProCombined;
+namespace ElsaProServer.Hosting;
 
+/// <summary>
+/// Reloads all active shells when the configuration changes.
+/// </summary>
 internal sealed class ConfigChangeShellReloader(
     IConfiguration configuration,
     IShellRegistry shellRegistry,

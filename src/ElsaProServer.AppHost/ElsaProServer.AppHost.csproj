@@ -16,7 +16,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\ElsaProServer\ElsaProServer.csproj" />
-        <ProjectReference Include="..\ElsaProStudio.BlazorServer\ElsaProStudio.BlazorServer.csproj" />
+        <ProjectReference Include="..\ElsaProStudio\ElsaProStudio.csproj" />
     </ItemGroup>
 
 </Project>
