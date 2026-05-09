@@ -63,7 +63,7 @@ This starts:
 | `http://localhost:15672` | `rabbitmq` | RabbitMQ management UI |
 | `http://localhost:3000` | `smtp4dev` | Development SMTP UI |
 
-The checked-in Compose configuration runs the separate server and Studio containers. Studio uses `config/elsa-studio/config.json`, which defaults to `Studio:HostingModel = WebAssembly` and points browser traffic to `http://localhost:8080/elsa/api`.
+The checked-in Compose configuration runs the separate server and Studio containers. Studio uses `config/elsa-studio/config.json`, which defaults to `Studio:HostingModel = WebAssembly` and points browser traffic to `http://localhost:8080/elsa/api` through `Studio:Client:Backend:Url`.
 
 ### Choose an image
 
@@ -100,12 +100,12 @@ docker run -d \
   --network elsa \
   -p 8081:8080 \
   -e Studio__HostingModel=WebAssembly \
-  -e Backend__Url=http://localhost:8080/elsa/api \
+  -e Studio__Client__Backend__Url=http://localhost:8080/elsa/api \
   --name elsa-studio \
   valenceworks/elsa-pro-studio:latest
 ```
 
-Open Studio at `http://localhost:8081`. In WebAssembly mode, the browser calls the Elsa API directly, so `Backend__Url` must be reachable from the browser. If the Studio and API are on different origins, configure CORS on the server with `Elsa__Cors__AllowedOrigins__0`.
+Open Studio at `http://localhost:8081`. In WebAssembly mode, the browser calls the Elsa API directly, so `Studio__Client__Backend__Url` must be reachable from the browser. If the Studio and API are on different origins, configure CORS on the server with `Elsa__Cors__AllowedOrigins__0`.
 
 To run the standalone Studio as Blazor Server instead, change the Studio container options:
 
@@ -163,12 +163,12 @@ Each image is published with multiple tags so you can pin to the level of stabil
 
 ### Choosing Blazor Server or Blazor WebAssembly Studio
 
-Elsa Studio can run as either Blazor Server or Blazor WebAssembly. For separate server and Studio deployments, set `Studio__HostingModel` to `WebAssembly` or `BlazorServer` on the Studio container; the default is `WebAssembly`. Set `Backend__Url` to the appropriate Elsa API URL — browser-reachable for WebAssembly, server-reachable for Blazor Server.
+Elsa Studio can run as either Blazor Server or Blazor WebAssembly. For separate server and Studio deployments, set `Studio__HostingModel` to `WebAssembly` or `BlazorServer` on the Studio container; the default is `WebAssembly`. In WebAssembly mode, set browser-visible client settings under `Studio__Client`, such as `Studio__Client__Backend__Url`. In Blazor Server mode, set server-side `Backend__Url`.
 
 | Hosting model | Use when | Image or Dockerfile | URL shape |
 |---|---|---|---|
 | Blazor Server | You want server-side Studio interactivity, either separately or in the combined image | `valenceworks/elsa-pro-studio` or `valenceworks/elsa-pro-combined` with `Studio__HostingModel=BlazorServer` | Separate Studio on `http://localhost:8081`, or combined API and Studio on `http://localhost:8080` |
-| Blazor WebAssembly | You want browser-side Studio interactivity in either the standalone Studio or combined image | `valenceworks/elsa-pro-studio` or `valenceworks/elsa-pro-combined` with `Studio__HostingModel=WebAssembly` | Separate Studio on `http://localhost:8081` calling `Backend__Url`, or combined on `http://localhost:8080` |
+| Blazor WebAssembly | You want browser-side Studio interactivity in either the standalone Studio or combined image | `valenceworks/elsa-pro-studio` or `valenceworks/elsa-pro-combined` with `Studio__HostingModel=WebAssembly` | Separate Studio on `http://localhost:8081` calling `Studio__Client__Backend__Url`, or combined on `http://localhost:8080` |
 
 ### Prerequisites
 - Docker 20.10 or later
@@ -220,7 +220,7 @@ docker run -d \
   --network elsa \
   -p 8081:8080 \
   -e Studio__HostingModel=WebAssembly \
-  -e Backend__Url=http://localhost:8080/elsa/api \
+  -e Studio__Client__Backend__Url=http://localhost:8080/elsa/api \
   --name elsa-studio \
   elsa-pro-studio
 ```
@@ -292,7 +292,8 @@ dotnet run
 | `CShells__Shells__Default__Features__DefaultAdminUser__AdminRoleName` | Default shell admin role name | `admin` | No |
 | `CShells__Shells__Default__Features__Identity__SigningKey` | Default shell identity signing key | Placeholder | Yes for production |
 | `Studio__HostingModel` | Studio hosting model: `WebAssembly` or `BlazorServer` | `WebAssembly` | No |
-| `Backend__Url` | Elsa API URL — browser-reachable for WebAssembly, server-reachable for Blazor Server | appsettings value | Required for standalone Studio |
+| `Studio__Client__Backend__Url` | Browser-visible Elsa API URL for WebAssembly Studio | appsettings value | Required for standalone WebAssembly Studio |
+| `Backend__Url` | Server-side Elsa API URL for Blazor Server Studio | appsettings value | Required for standalone Blazor Server Studio |
 | `Elsa__Cors__AllowedOrigins__0` | First allowed CORS origin | appsettings value | No |
 | `ASPNETCORE_ENVIRONMENT` | ASP.NET Core environment | Production | No |
 | `ASPNETCORE_URLS` | Server URLs | http://+:8080 | No |
@@ -400,13 +401,13 @@ The included `docker-compose.yml` brings up separate server and Studio container
 
 The compose file starts the server and Studio plus local infrastructure services (PostgreSQL, SQL Server, MySQL, Oracle, MongoDB, RabbitMQ, Redis, SMTP4Dev) for development and testing. The checked-in server config mounted from `config/elsa-server/config.json` currently enables PostgreSQL persistence, RabbitMQ messaging, Quartz PostgreSQL scheduling, and the sample endpoint for the default shell.
 
-In Docker Compose, Studio gets its hosting model and backend URL from `config/elsa-studio/config.json`. The checked-in config defaults to `WebAssembly` with `Backend:Url` set to `http://localhost:8080/elsa/api` (browser-reachable).
+In Docker Compose, Studio gets its hosting model and browser-visible WebAssembly settings from `config/elsa-studio/config.json`. The checked-in config defaults to `WebAssembly` with `Studio:Client:Backend:Url` set to `http://localhost:8080/elsa/api` (browser-reachable). Only the `Studio:Client` section is served to the WebAssembly client.
 
 ```bash
 docker compose up -d
 ```
 
-To switch Compose Studio to Blazor Server, set `Studio:HostingModel` to `BlazorServer` and change `Backend:Url` to `http://elsa-server:8080/elsa/api` (server-reachable via the Docker network).
+To switch Compose Studio to Blazor Server, set `Studio:HostingModel` to `BlazorServer` and add `Backend:Url` set to `http://elsa-server:8080/elsa/api` (server-reachable via the Docker network).
 
 ## API Documentation
 

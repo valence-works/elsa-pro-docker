@@ -43,14 +43,48 @@ if (useBlazorServer)
 }
 else
 {
-    app.MapGet("/appsettings.json", () => new
-    {
-        Backend = new
-        {
-            Url = configuration.GetValue<string>("Backend:Url")
-        }
-    });
+    app.MapGet("/appsettings.json", () => GetClientConfiguration(configuration));
     app.MapFallbackToFile("index.html");
 }
 
 app.Run();
+
+static IDictionary<string, object?> GetClientConfiguration(IConfiguration configuration)
+{
+    return GetSectionValue(configuration.GetSection("Studio:Client")) as IDictionary<string, object?> ?? new Dictionary<string, object?>();
+}
+
+static object? GetSectionValue(IConfigurationSection section)
+{
+    var children = section.GetChildren().ToArray();
+
+    if (children.Length == 0)
+        return section.Value;
+
+    if (TryGetArrayIndexes(children, out var indexes))
+        return children
+            .Zip(indexes)
+            .OrderBy(x => x.Second)
+            .Select(x => GetSectionValue(x.First))
+            .ToArray();
+
+    return children.ToDictionary(
+        child => child.Key,
+        GetSectionValue,
+        StringComparer.OrdinalIgnoreCase);
+}
+
+static bool TryGetArrayIndexes(IConfigurationSection[] children, out int[] indexes)
+{
+    indexes = new int[children.Length];
+
+    for (var i = 0; i < children.Length; i++)
+    {
+        if (!int.TryParse(children[i].Key, out indexes[i]))
+            return false;
+    }
+
+    return indexes
+        .Order()
+        .SequenceEqual(Enumerable.Range(0, children.Length));
+}

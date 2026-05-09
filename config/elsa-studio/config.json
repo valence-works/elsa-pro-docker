@@ -1,8 +1,10 @@
 {
   "Studio": {
-    "HostingModel": "WebAssembly"
-  },
-  "Backend": {
-    "Url": "http://localhost:8080/elsa/api"
+    "HostingModel": "WebAssembly",
+    "Client": {
+      "Backend": {
+        "Url": "http://localhost:8080/elsa/api"
+      }
+    }
   }
 }
