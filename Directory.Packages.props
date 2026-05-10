@@ -9,12 +9,12 @@
     </ItemGroup>
 
     <ItemGroup Label="Elsa">
-        <PackageVersion Include="Elsa" Version="3.8.0-preview.4538" />
-        <PackageVersion Include="Elsa.Http" Version="3.8.0-preview.4538" />
-        <PackageVersion Include="Elsa.Identity" Version="3.8.0-preview.4538" />
-        <PackageVersion Include="Elsa.Persistence.EFCore.Sqlite" Version="3.8.0-preview.4538" />
-        <PackageVersion Include="Elsa.Workflows.Runtime.Distributed" Version="3.8.0-preview.4538" />
-        <PackageVersion Include="Elsa.Shells.Api" Version="3.8.0-preview.4538" />
+        <PackageVersion Include="Elsa" Version="3.8.0-preview.4544" />
+        <PackageVersion Include="Elsa.Http" Version="3.8.0-preview.4544" />
+        <PackageVersion Include="Elsa.Identity" Version="3.8.0-preview.4544" />
+        <PackageVersion Include="Elsa.Persistence.EFCore.Sqlite" Version="3.8.0-preview.4544" />
+        <PackageVersion Include="Elsa.Workflows.Runtime.Distributed" Version="3.8.0-preview.4544" />
+        <PackageVersion Include="Elsa.Shells.Api" Version="3.8.0-preview.4544" />
     </ItemGroup>
 
     <ItemGroup Label="Elsa.Extensions">
@@ -27,15 +27,15 @@
     </ItemGroup>
 
     <ItemGroup Label="Elsa.Studio">
-        <PackageVersion Include="Elsa.Studio" Version="3.8.0-preview.1567" />
-        <PackageVersion Include="Elsa.Studio.Core" Version="3.8.0-preview.1567" />
-        <PackageVersion Include="Elsa.Studio.Core.BlazorServer" Version="3.8.0-preview.1567" />
-        <PackageVersion Include="Elsa.Studio.Core.BlazorWasm" Version="3.8.0-preview.1567" />
-        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity" Version="3.8.0-preview.1567" />
-        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorServer" Version="3.8.0-preview.1567" />
-        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorWasm" Version="3.8.0-preview.1567" />
-        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.UI" Version="3.8.0-preview.1567" />
-        <PackageVersion Include="Elsa.Studio.Shell" Version="3.8.0-preview.1567" />
+        <PackageVersion Include="Elsa.Studio" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Core" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Core.BlazorServer" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Core.BlazorWasm" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorServer" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorWasm" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.UI" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Shell" Version="3.8.0-preview.1570" />
     </ItemGroup>
 
     <ItemGroup Label="CShells">
@@ -47,12 +47,12 @@
     </ItemGroup>
 
     <ItemGroup Label="Nuplane">
-        <PackageVersion Include="Nuplane" Version="0.0.7-preview.38" />
-        <PackageVersion Include="Nuplane.Abstractions" Version="0.0.7-preview.38" />
-        <PackageVersion Include="Nuplane.Loading" Version="0.0.7-preview.38" />
-        <PackageVersion Include="Nuplane.Loading.Abstractions" Version="0.0.7-preview.38" />
-        <PackageVersion Include="Nuplane.Loading.Api" Version="0.0.7-preview.38" />
-        <PackageVersion Include="Nuplane.Sources.Directory" Version="0.0.7-preview.38" />
+        <PackageVersion Include="Nuplane" Version="0.0.7" />
+        <PackageVersion Include="Nuplane.Abstractions" Version="0.0.7" />
+        <PackageVersion Include="Nuplane.Loading" Version="0.0.7" />
+        <PackageVersion Include="Nuplane.Loading.Abstractions" Version="0.0.7" />
+        <PackageVersion Include="Nuplane.Loading.Api" Version="0.0.7" />
+        <PackageVersion Include="Nuplane.Sources.Directory" Version="0.0.7" />
     </ItemGroup>
 
     <ItemGroup Label="Microsoft.Extensions">
