@@ -73,6 +73,12 @@
         },
         {
           "Name": "CShells.AspNetCore.Abstractions"
+        },
+        {
+          "Name": "Elsa"
+        },
+        {
+          "Name": "Elsa.Common"
         }
       ]
     }
