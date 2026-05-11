@@ -1,13 +1,98 @@
 {
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "CShells.AspNetCore.Notifications.ShellEndpointRegistrationHandler": "Warning",
+      "ElsaProCombined": "Warning",
+      "Microsoft": "Warning",
+      "Microsoft.EntityFrameworkCore.Model.Validation": "Error",
+      "Microsoft.Hosting": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "Backend": {
+    "Url": "http://localhost:8080/elsa/api"
+  },
+  "Studio": {
+    "HostingModel": "BlazorServer"
+  },
+  "ConnectionStrings": {
+    "Elsa": "Data Source=elsa.db"
+  },
+  "Nuplane": {
+    "Setup": {
+      "AutomaticReconciliation": true,
+      "PollInterval": "00:01:00",
+      "Feeds": [
+        {
+          "Name": "local-packages",
+          "DirectoryPath": "packages",
+          "IncludePatterns": [
+            "*"
+          ],
+          "Directory": {
+            "Watch": true,
+            "DebounceWindow": "00:00:01"
+          }
+        },
+        {
+          "Name": "nuget.org",
+          "ServiceIndex": "https://api.nuget.org/v3/index.json"
+        },
+        {
+          "Name": "feedz.io",
+          "ServiceIndex": "https://f.feedz.io/elsa-workflows/elsa-3/nuget/index.json",
+          "IncludePatterns": [
+            "Elsa.Persistence.EFCore.PostgreSql [3.8.0-preview,)",
+            "Elsa.Scheduling.Quartz.EFCore.PostgreSql [3.8.0-preview,)",
+            "Elsa.ServiceBus.MassTransit.RabbitMq [3.8.0-preview,)"
+          ]
+        }
+      ]
+    },
+    "Loading": {
+      "Enabled": true,
+      "DefaultLoadMode": "Collectible",
+      "PackageLoadModes": [
+        {
+          "PackageId": "Elsa.Persistence.EFCore.PostgreSql",
+          "LoadMode": "HostIntegrated"
+        },
+        {
+          "PackageId": "Elsa.Scheduling.Quartz.EFCore.PostgreSql",
+          "LoadMode": "HostIntegrated"
+        },
+        {
+          "PackageId": "Elsa.ServiceBus.MassTransit.RabbitMq",
+          "LoadMode": "HostIntegrated"
+        }
+      ],
+      "SharedAssemblies": [
+        {
+          "Name": "CShells.Abstractions"
+        },
+        {
+          "Name": "CShells.AspNetCore.Abstractions"
+        }
+      ]
+    }
+  },
   "CShells": {
     "Shells": {
       "Default": {
+        "Configuration": {
+          "WebRouting": {
+            "Path": ""
+          }
+        },
         "Features": {
           "DefaultAdminUser": {
             "AdminUsername": "admin",
-            "AdminPassword": "foobar",
+            "AdminPassword": "password",
             "AdminRoleName": "admin",
-            "AdminRolePermissions": ["*"]
+            "AdminRolePermissions": [
+              "*"
+            ]
           },
           "DefaultAuthentication": {},
           "Liquid": {},
@@ -15,26 +100,32 @@
             "SigningKey": "CHANGE_ME_TO_A_SECURE_RANDOM_KEY_AT_LEAST_256_BITS"
           },
           "PostgreSqlWorkflowPersistence": {
-            "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
+            "ConnectionString": "Host=localhost;Port=5432;Database=elsa;Username=elsa;Password=elsa"
           },
           "PostgreSqlIdentityPersistence": {
-            "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
+            "ConnectionString": "Host=localhost;Port=5432;Database=elsa;Username=elsa;Password=elsa"
           },
           "MassTransitRabbitMq": {
-            "ConnectionString": "amqp://guest:guest@rabbitmq:5672/"
+            "ConnectionString": "amqp://guest:guest@localhost:5672/"
           },
           "QuartzPostgreSql": {
-            "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
+            "ConnectionString": "Host=localhost;Port=5432;Database=elsa;Username=elsa;Password=elsa"
           },
           "Http": {
             "HttpActivityOptions": {
               "BasePath": "/workflows",
-              "BaseUrl": "http://elsa-server:8080"
+              "BaseUrl": "http://localhost:8080"
             }
-          },
-          "SampleEndpoint": {}
+          }
         }
       }
+    }
+  },
+  "Elsa": {
+    "Cors": {
+      "AllowedOrigins": [
+        "http://localhost:8080"
+      ]
     }
   }
 }

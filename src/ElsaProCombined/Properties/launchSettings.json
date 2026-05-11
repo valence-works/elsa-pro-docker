@@ -8,7 +8,8 @@
       "applicationUrl": "http://localhost:8080",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_URLS": "http://localhost:8080"
+        "ASPNETCORE_URLS": "http://localhost:8080",
+        "CSHELLS__SHELLS__DEFAULT__FEATURES__IDENTITY__SIGNINGKEY": "SUPER_SECRET_KEY_FOR_DEVELOPMENT_ONLY"
       }
     }
   }
