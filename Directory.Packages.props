@@ -9,50 +9,50 @@
     </ItemGroup>
 
     <ItemGroup Label="Elsa">
-        <PackageVersion Include="Elsa" Version="3.8.0-preview.4538" />
-        <PackageVersion Include="Elsa.Http" Version="3.8.0-preview.4538" />
-        <PackageVersion Include="Elsa.Identity" Version="3.8.0-preview.4538" />
-        <PackageVersion Include="Elsa.Persistence.EFCore.Sqlite" Version="3.8.0-preview.4538" />
-        <PackageVersion Include="Elsa.Workflows.Runtime.Distributed" Version="3.8.0-preview.4538" />
-        <PackageVersion Include="Elsa.Shells.Api" Version="3.8.0-preview.4538" />
+        <PackageVersion Include="Elsa" Version="3.8.0-preview.4544" />
+        <PackageVersion Include="Elsa.Http" Version="3.8.0-preview.4544" />
+        <PackageVersion Include="Elsa.Identity" Version="3.8.0-preview.4544" />
+        <PackageVersion Include="Elsa.Persistence.EFCore.Sqlite" Version="3.8.0-preview.4544" />
+        <PackageVersion Include="Elsa.Workflows.Runtime.Distributed" Version="3.8.0-preview.4544" />
+        <PackageVersion Include="Elsa.Shells.Api" Version="3.8.0-preview.4544" />
     </ItemGroup>
 
     <ItemGroup Label="Elsa.Extensions">
-        <PackageVersion Include="Elsa.Scheduling.Quartz" Version="3.6.0-preview.296" />
-        <PackageVersion Include="Elsa.Scheduling.Quartz.EFCore.PostgreSql" Version="3.6.0-preview.296" />
-        <PackageVersion Include="Elsa.Scheduling.Quartz.EFCore.Sqlite" Version="3.6.0-preview.296" />
-        <PackageVersion Include="Elsa.ServiceBus.MassTransit" Version="3.6.0-preview.296" />
-        <PackageVersion Include="Elsa.ServiceBus.MassTransit.AzureServiceBus" Version="3.6.0-preview.296" />
-        <PackageVersion Include="Elsa.ServiceBus.MassTransit.RabbitMq" Version="3.6.0-preview.296" />
+        <PackageVersion Include="Elsa.Scheduling.Quartz" Version="3.8.0-preview.302" />
+        <PackageVersion Include="Elsa.Scheduling.Quartz.EFCore.PostgreSql" Version="3.8.0-preview.302" />
+        <PackageVersion Include="Elsa.Scheduling.Quartz.EFCore.Sqlite" Version="3.8.0-preview.302" />
+        <PackageVersion Include="Elsa.ServiceBus.MassTransit" Version="3.8.0-preview.302" />
+        <PackageVersion Include="Elsa.ServiceBus.MassTransit.AzureServiceBus" Version="3.8.0-preview.302" />
+        <PackageVersion Include="Elsa.ServiceBus.MassTransit.RabbitMq" Version="3.8.0-preview.302" />
     </ItemGroup>
 
     <ItemGroup Label="Elsa.Studio">
-        <PackageVersion Include="Elsa.Studio" Version="3.7.0-preview.1558" />
-        <PackageVersion Include="Elsa.Studio.Core" Version="3.7.0-preview.1558" />
-        <PackageVersion Include="Elsa.Studio.Core.BlazorServer" Version="3.7.0-preview.1558" />
-        <PackageVersion Include="Elsa.Studio.Core.BlazorWasm" Version="3.7.0-preview.1558" />
-        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity" Version="3.7.0-preview.1558" />
-        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorServer" Version="3.7.0-preview.1558" />
-        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorWasm" Version="3.7.0-preview.1558" />
-        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.UI" Version="3.7.0-preview.1558" />
-        <PackageVersion Include="Elsa.Studio.Shell" Version="3.7.0-preview.1558" />
+        <PackageVersion Include="Elsa.Studio" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Core" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Core.BlazorServer" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Core.BlazorWasm" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorServer" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorWasm" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.UI" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio.Shell" Version="3.8.0-preview.1570" />
     </ItemGroup>
 
     <ItemGroup Label="CShells">
-        <PackageVersion Include="CShells" Version="0.0.20-preview.112" />
-        <PackageVersion Include="CShells.Abstractions" Version="0.0.20-preview.112" />
-        <PackageVersion Include="CShells.AspNetCore" Version="0.0.20-preview.112" />
-        <PackageVersion Include="CShells.AspNetCore.Abstractions" Version="0.0.20-preview.112" />
-        <PackageVersion Include="CShells.FastEndpoints" Version="0.0.20-preview.112" />
+        <PackageVersion Include="CShells" Version="0.0.20" />
+        <PackageVersion Include="CShells.Abstractions" Version="0.0.20" />
+        <PackageVersion Include="CShells.AspNetCore" Version="0.0.20" />
+        <PackageVersion Include="CShells.AspNetCore.Abstractions" Version="0.0.20" />
+        <PackageVersion Include="CShells.FastEndpoints" Version="0.0.20" />
     </ItemGroup>
 
     <ItemGroup Label="Nuplane">
-        <PackageVersion Include="Nuplane" Version="0.0.5" />
-        <PackageVersion Include="Nuplane.Abstractions" Version="0.0.5" />
-        <PackageVersion Include="Nuplane.Loading" Version="0.0.5" />
-        <PackageVersion Include="Nuplane.Loading.Abstractions" Version="0.0.5" />
-        <PackageVersion Include="Nuplane.Loading.Api" Version="0.0.5" />
-        <PackageVersion Include="Nuplane.Sources.Directory" Version="0.0.5" />
+        <PackageVersion Include="Nuplane" Version="0.0.7" />
+        <PackageVersion Include="Nuplane.Abstractions" Version="0.0.7" />
+        <PackageVersion Include="Nuplane.Loading" Version="0.0.7" />
+        <PackageVersion Include="Nuplane.Loading.Abstractions" Version="0.0.7" />
+        <PackageVersion Include="Nuplane.Loading.Api" Version="0.0.7" />
+        <PackageVersion Include="Nuplane.Sources.Directory" Version="0.0.7" />
     </ItemGroup>
 
     <ItemGroup Label="Microsoft.Extensions">

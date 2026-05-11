@@ -6,7 +6,7 @@ A premium, production-ready Docker deployment for Elsa Workflows with hardened i
 
 This repository provides a containerized Elsa Workflows deployment built on .NET 10, including:
 - **Elsa Workflows 3.8 preview** runtime and management APIs
-- **Blazor Server Studio UI** for visual workflow design
+- **Elsa Studio UI** for visual workflow design, available as Blazor Server or Blazor WebAssembly
 - **Combined server + Studio host** for single-container deployments
 - **Configurable persistence** through CShells shell features and Nuplane-loaded packages
 - **CShells** multi-shell architecture
@@ -20,7 +20,7 @@ This repository provides a containerized Elsa Workflows deployment built on .NET
 ### What's in the Box
 
 - **Workflow Runtime**: Execute workflows with HTTP triggers and JavaScript/Liquid expressions
-- **Visual Designer**: Blazor Server Studio for building and managing workflows in the browser
+- **Visual Designer**: Elsa Studio for building and managing workflows in the browser
 - **Multi-Shell Support**: CShells architecture allows running multiple isolated workflow engines in a single host
 - **Runtime Extensibility**: Nuplane loads NuGet packages at startup — add database providers, message buses, schedulers, and more without rebuilding the image
 - **Identity & Security**: Built-in user management with role-based access control and per-shell admin provisioning
@@ -46,36 +46,106 @@ The following capabilities are planned but not yet available:
 
 ## Quick Start
 
-### Using pre-built images from Docker Hub
+### Start the development stack
 
-Pre-built images are published to Docker Hub under the `valenceworks` namespace.
+The fastest way to run everything is Docker Compose:
 
-**Pull and run the server:**
+```bash
+docker compose up -d
+```
+
+This starts:
+
+| URL | Service | Purpose |
+|---|---|---|
+| `http://localhost:8080` | `elsa-server` | Elsa runtime and management API |
+| `http://localhost:8081` | `elsa-studio` | Elsa Studio UI |
+| `http://localhost:15672` | `rabbitmq` | RabbitMQ management UI |
+| `http://localhost:3000` | `smtp4dev` | Development SMTP UI |
+
+The checked-in Compose configuration runs the separate server and Studio containers. Studio uses `config/elsa-studio/config.json`, which defaults to `Studio:HostingModel = WebAssembly` and points browser traffic to `http://localhost:8080/elsa/api` through `Studio:Client:Backend:Url`.
+
+### Choose an image
+
+Pre-built images are published to Docker Hub under the `valenceworks` namespace:
+
+| Image | Purpose | Contains Elsa API? | Contains Studio? | Default Studio mode |
+|---|---|---:|---:|---|
+| `valenceworks/elsa-pro-server` | Backend-only workflow engine for deployments where Studio is separate or not needed | Yes | No | N/A |
+| `valenceworks/elsa-pro-studio` | Standalone Studio UI that connects to an Elsa API server | No | Yes | `WebAssembly` |
+| `valenceworks/elsa-pro-combined` | Single-container deployment with backend API and Studio UI in one process | Yes | Yes | `WebAssembly` |
+
+The Studio image is unified: set `Studio__HostingModel` to `WebAssembly` or `BlazorServer`.
+
+### Run separate server and Studio containers
+
+Use this model when you want to scale, secure, or deploy the API and UI separately.
+
 ```bash
 docker pull valenceworks/elsa-pro-server:latest
+docker pull valenceworks/elsa-pro-studio:latest
 docker network create elsa
+
 docker run -d \
   --network elsa \
   -p 8080:8080 \
-  -e CShells__Shells__0__Features__DefaultAdminUser__AdminUsername=admin \
-  -e CShells__Shells__0__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
-  -e CShells__Shells__0__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminUsername=admin \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
+  -e CShells__Shells__Default__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here \
+  -e Elsa__Cors__AllowedOrigins__0=http://localhost:8081 \
   --name elsa-server \
   valenceworks/elsa-pro-server:latest
-```
 
-**Pull and run the studio:**
-```bash
-docker pull valenceworks/elsa-pro-studio-blazorserver:latest
 docker run -d \
   --network elsa \
   -p 8081:8080 \
-  -e Backend__Url=http://elsa-server:8080/elsa/api \
+  -e Studio__HostingModel=WebAssembly \
+  -e Studio__Client__Backend__Url=http://localhost:8080/elsa/api \
   --name elsa-studio \
-  valenceworks/elsa-pro-studio-blazorserver:latest
+  valenceworks/elsa-pro-studio:latest
 ```
 
-The Studio container calls the server from inside the Docker network, so use the server container name (`elsa-server`) and the container port (`8080`) in `Backend__Url`. Open Studio from the host at `http://localhost:8081`.
+Open Studio at `http://localhost:8081`. In WebAssembly mode, the browser calls the Elsa API directly, so `Studio__Client__Backend__Url` must be reachable from the browser. If the Studio and API are on different origins, configure CORS on the server with `Elsa__Cors__AllowedOrigins__0`.
+
+To run the standalone Studio as Blazor Server instead, change the Studio container options:
+
+```bash
+-e Studio__HostingModel=BlazorServer \
+-e Backend__Url=http://elsa-server:8080/elsa/api
+```
+
+In Blazor Server mode, the Studio container calls the API from inside the Docker network, so `Backend__Url` should use the API container name (`elsa-server`).
+
+### Run the combined single-container image
+
+Use this model when you want the API and Studio served from one container and one origin.
+
+```bash
+docker pull valenceworks/elsa-pro-combined:latest
+docker run -d \
+  -p 8080:8080 \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminUsername=admin \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
+  -e CShells__Shells__Default__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here \
+  --name elsa-pro \
+  valenceworks/elsa-pro-combined:latest
+```
+
+Open Studio at `http://localhost:8080`; the API is available at `http://localhost:8080/elsa/api`.
+
+To run the combined image with Blazor Server Studio:
+
+```bash
+docker run -d \
+  -p 8080:8080 \
+  -e Studio__HostingModel=BlazorServer \
+  -e Backend__Url=http://localhost:8080/elsa/api \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminUsername=admin \
+  -e CShells__Shells__Default__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
+  -e CShells__Shells__Default__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here \
+  --name elsa-pro \
+  valenceworks/elsa-pro-combined:latest
+```
 
 ### Image versioning
 
@@ -91,13 +161,14 @@ Each image is published with multiple tags so you can pin to the level of stabil
 | `elsa-<elsa-version>` | `elsa-3.8.0-preview.4538` | Latest build targeting a specific Elsa version |
 | `sha-<commit>` | `sha-07169a7` | Pinned to an exact commit |
 
-**Available images:**
+### Choosing Blazor Server or Blazor WebAssembly Studio
 
-| Image | Description |
-|---|---|
-| `valenceworks/elsa-pro-server` | Elsa Pro API server |
-| `valenceworks/elsa-pro-studio-blazorserver` | Elsa Pro Studio (Blazor Server) |
-| `valenceworks/elsa-pro-combined` | Elsa Pro API server and Studio in one container |
+Elsa Studio can run as either Blazor Server or Blazor WebAssembly. For separate server and Studio deployments, set `Studio__HostingModel` to `WebAssembly` or `BlazorServer` on the Studio container; the default is `WebAssembly`. In WebAssembly mode, set browser-visible client settings under `Studio__Client`, such as `Studio__Client__Backend__Url`. In Blazor Server mode, set server-side `Backend__Url`.
+
+| Hosting model | Use when | Image or Dockerfile | URL shape |
+|---|---|---|---|
+| Blazor Server | You want server-side Studio interactivity, either separately or in the combined image | `valenceworks/elsa-pro-studio` or `valenceworks/elsa-pro-combined` with `Studio__HostingModel=BlazorServer` | Separate Studio on `http://localhost:8081`, or combined API and Studio on `http://localhost:8080` |
+| Blazor WebAssembly | You want browser-side Studio interactivity in either the standalone Studio or combined image | `valenceworks/elsa-pro-studio` or `valenceworks/elsa-pro-combined` with `Studio__HostingModel=WebAssembly` | Separate Studio on `http://localhost:8081` calling `Studio__Client__Backend__Url`, or combined on `http://localhost:8080` |
 
 ### Prerequisites
 - Docker 20.10 or later
@@ -111,28 +182,51 @@ git clone https://github.com/valence-works/elsa-pro-docker.git
 cd elsa-pro-docker
 ```
 
-2. **Build the Docker image:**
+2. **Build the Docker images you need:**
+
+Backend-only server:
+
 ```bash
 docker build -t elsa-pro-server -f src/ElsaProServer/Dockerfile .
 ```
 
-To build the single-container server + Studio image:
+Standalone Studio:
+
+```bash
+docker build -t elsa-pro-studio -f src/ElsaProStudio/Dockerfile .
+```
+
+Combined server + Studio:
+
 ```bash
 docker build -t elsa-pro-combined -f src/ElsaProCombined/Dockerfile .
 ```
 
-3. **Run the container:**
+3. **Run separate server and Studio containers:**
+
 ```bash
+docker network create elsa
+
 docker run -d \
+  --network elsa \
   -p 8080:8080 \
   -e CShells__Shells__Default__Features__DefaultAdminUser__AdminUsername=admin \
   -e CShells__Shells__Default__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123! \
   -e CShells__Shells__Default__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here \
   --name elsa-server \
   elsa-pro-server
+
+docker run -d \
+  --network elsa \
+  -p 8081:8080 \
+  -e Studio__HostingModel=WebAssembly \
+  -e Studio__Client__Backend__Url=http://localhost:8080/elsa/api \
+  --name elsa-studio \
+  elsa-pro-studio
 ```
 
-To run the single-container server + Studio image:
+To run the combined image instead:
+
 ```bash
 docker run -d \
   -p 8080:8080 \
@@ -144,8 +238,10 @@ docker run -d \
 ```
 
 4. **Access the server and Studio:**
-- Workflows API: `http://localhost:8080/elsa/api`
-- Studio UI: `http://localhost:8080`
+- Separate server API: `http://localhost:8080/elsa/api`
+- Separate Studio UI: `http://localhost:8081`
+- Combined Studio UI: `http://localhost:8080`
+- Combined API: `http://localhost:8080/elsa/api`
 - Health check: `http://localhost:8080/health`
 
 ### Running Locally (Development)
@@ -157,14 +253,31 @@ dotnet restore
 
 2. **Optionally override the default shell admin user and signing key:**
 ```bash
-export CShells__Shells__0__Features__DefaultAdminUser__AdminUsername=admin
-export CShells__Shells__0__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123!
-export CShells__Shells__0__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here
+export CShells__Shells__Default__Features__DefaultAdminUser__AdminUsername=admin
+export CShells__Shells__Default__Features__DefaultAdminUser__AdminPassword=YourSecurePassword123!
+export CShells__Shells__Default__Features__Identity__SigningKey=your-secure-256-bit-signing-key-here
 ```
 
-3. **Run the application:**
+3. **Run a project:**
+
+Backend-only server:
+
 ```bash
 cd src/ElsaProServer
+dotnet run
+```
+
+Standalone Studio:
+
+```bash
+cd src/ElsaProStudio
+dotnet run
+```
+
+Combined server + Studio:
+
+```bash
+cd src/ElsaProCombined
 dotnet run
 ```
 
@@ -178,6 +291,9 @@ dotnet run
 | `CShells__Shells__Default__Features__DefaultAdminUser__AdminPassword` | Default shell admin password | `password` | Recommended override |
 | `CShells__Shells__Default__Features__DefaultAdminUser__AdminRoleName` | Default shell admin role name | `admin` | No |
 | `CShells__Shells__Default__Features__Identity__SigningKey` | Default shell identity signing key | Placeholder | Yes for production |
+| `Studio__HostingModel` | Studio hosting model: `WebAssembly` or `BlazorServer` | `WebAssembly` | No |
+| `Studio__Client__Backend__Url` | Browser-visible Elsa API URL for WebAssembly Studio | appsettings value | Required for standalone WebAssembly Studio |
+| `Backend__Url` | Server-side Elsa API URL for Blazor Server Studio | appsettings value | Required for standalone Blazor Server Studio |
 | `Elsa__Cors__AllowedOrigins__0` | First allowed CORS origin | appsettings value | No |
 | `ASPNETCORE_ENVIRONMENT` | ASP.NET Core environment | Production | No |
 | `ASPNETCORE_URLS` | Server URLs | http://+:8080 | No |
@@ -216,7 +332,7 @@ Coming:
 
 ### Mounted configuration file (`/config/config.json`)
 
-Both services load an optional JSON file from `/config/config.json` inside the container. This is the recommended way to supply configuration in Docker environments — it avoids long lists of `-e` flags and keeps secrets out of the process environment.
+All application images load an optional JSON file from `/config/config.json` inside the container. This is the recommended way to supply configuration in Docker environments — it avoids long lists of `-e` flags and keeps secrets out of the process environment.
 
 **Configuration precedence (last-wins):**
 1. `appsettings.json` (baked into the image)
@@ -276,20 +392,22 @@ CShells__Shells__Default__Features__Identity__SigningKey="your-secure-256-bit-si
 
 ## Docker Compose
 
-The included `docker-compose.yml` brings up the server and studio with supporting infrastructure for development:
+The included `docker-compose.yml` brings up separate server and Studio containers with supporting infrastructure for development:
 
 | Service | Port | Purpose |
 |---------|------|---------|
 | `elsa-server` | 8080 | Elsa Workflows API server |
-| `elsa-studio` | 8081 | Blazor Server workflow designer |
+| `elsa-studio` | 8081 | Elsa Studio workflow designer |
 
 The compose file starts the server and Studio plus local infrastructure services (PostgreSQL, SQL Server, MySQL, Oracle, MongoDB, RabbitMQ, Redis, SMTP4Dev) for development and testing. The checked-in server config mounted from `config/elsa-server/config.json` currently enables PostgreSQL persistence, RabbitMQ messaging, Quartz PostgreSQL scheduling, and the sample endpoint for the default shell.
 
-In Docker Compose, Studio gets its backend URL from `config/elsa-studio/config.json`, which points to `http://elsa-server:8080/elsa/api` on the Compose network.
+In Docker Compose, Studio gets its hosting model and browser-visible WebAssembly settings from `config/elsa-studio/config.json`. The checked-in config defaults to `WebAssembly` with `Studio:Client:Backend:Url` set to `http://localhost:8080/elsa/api` (browser-reachable). Only the `Studio:Client` section is served to the WebAssembly client.
 
 ```bash
 docker compose up -d
 ```
+
+To switch Compose Studio to Blazor Server, set `Studio:HostingModel` to `BlazorServer` and add `Backend:Url` set to `http://elsa-server:8080/elsa/api` (server-reachable via the Docker network).
 
 ## API Documentation
 
@@ -301,7 +419,7 @@ For full API documentation and workflow management, connect the Elsa Studio at `
 
 ## Security Best Practices
 
-1. **Generate a secure signing key**: The default shell's `CShells__Shells__0__Features__Identity__SigningKey` must be set to a secure randomly generated value (256-bit minimum). Never use the placeholder value in production.
+1. **Generate a secure signing key**: The default shell's `CShells__Shells__Default__Features__Identity__SigningKey` must be set to a secure randomly generated value (256-bit minimum). Never use the placeholder value in production.
 2. **Configure CORS properly**: CORS origins are read from `Elsa:Cors:AllowedOrigins`. Use `*` only for development; in production, set specific trusted domains only.
 3. **Change default credentials**: Always override the default shell admin username and password.
 4. **Use environment variables**: Never commit credentials or keys in code or configuration files
@@ -332,7 +450,7 @@ Ensure the configured shell persistence provider is loaded, enabled, and reachab
 ### Super admin not created
 Verify the default shell's `DefaultAdminUser` feature is configured in the mounted config file or environment:
 ```bash
-docker exec elsa-server printenv | grep 'CShells__Shells__0__Features__DefaultAdminUser'
+docker exec elsa-server printenv | grep 'CShells__Shells__Default__Features__DefaultAdminUser'
 ```
 
 ## Contributing

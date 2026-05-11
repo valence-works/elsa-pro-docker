@@ -10,12 +10,16 @@
 
   <Folder Name="/src/">
     <Project Path="src/ElsaProServer/ElsaProServer.csproj" />
+    <Project Path="src/ElsaProServer.Hosting/ElsaProServer.Hosting.csproj" />
     <Project Path="src/ElsaProCombined/ElsaProCombined.csproj" />
     <Project Path="src/ElsaProCombined.Client/ElsaProCombined.Client.csproj" />
+    <Project Path="src/ElsaProStudio.Client/ElsaProStudio.Client.csproj" />
+    <Project Path="src/ElsaProStudio.Server/ElsaProStudio.Server.csproj" />
+    <Project Path="src/ElsaProStudio.Shared/ElsaProStudio.Shared.csproj" />
     <Project Path="src/ElsaProServer.Identity/ElsaProServer.Identity.csproj" />
     <Project Path="src/ElsaProServer.ServiceDefaults/ElsaProServer.ServiceDefaults.csproj" />
     <Project Path="src/ElsaProServer.AppHost/ElsaProServer.AppHost.csproj" />
-    <Project Path="src/ElsaProStudio.BlazorServer/ElsaProStudio.BlazorServer.csproj" />
+    <Project Path="src/ElsaProStudio/ElsaProStudio.csproj" />
     <Project Path="src/SamplePackage/SamplePackage.csproj" />
   </Folder>
 </Solution>

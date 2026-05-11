@@ -3,6 +3,6 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-builder.AddElsaProStudioClient();
+await builder.AddElsaProStudioClientAsync();
 
 await builder.Build().RunAsync();

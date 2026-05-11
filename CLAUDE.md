@@ -11,7 +11,7 @@ A production-ready Docker packaging of [Elsa Workflows 3.x](https://elsa-workflo
 **Build a single project:**
 ```bash
 dotnet build src/ElsaProServer/ElsaProServer.csproj
-dotnet build src/ElsaProStudio.BlazorServer/ElsaProStudio.BlazorServer.csproj
+dotnet build src/ElsaProStudio/ElsaProStudio.csproj
 ```
 
 **Run the server locally (no Docker):**
@@ -23,7 +23,7 @@ dotnet run
 **Build Docker images:**
 ```bash
 docker build -t elsa-pro-server -f src/ElsaProServer/Dockerfile .
-docker build -t elsa-pro-studio -f src/ElsaProStudio.BlazorServer/Dockerfile .
+docker build -t elsa-pro-studio -f src/ElsaProStudio/Dockerfile .
 ```
 
 **Full dev stack (server + studio + all optional infrastructure):**
@@ -51,7 +51,7 @@ Five .NET 10 projects in `src/`:
 | Project | Role |
 |---|---|
 | `ElsaProServer` | Elsa runtime API (port 8080) |
-| `ElsaProStudio.BlazorServer` | Blazor Server workflow designer UI (port 8081) |
+| `ElsaProStudio` | Unified Studio workflow designer UI (port 8081) |
 | `ElsaProServer.Identity` | User/role management, admin provisioning |
 | `ElsaProServer.ServiceDefaults` | Aspire shared setup (OTel, health checks, resilience) |
 | `ElsaProServer.AppHost` | Aspire orchestration for local dev |

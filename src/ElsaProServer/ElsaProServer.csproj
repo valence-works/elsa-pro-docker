@@ -7,40 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Elsa" />
-        <PackageReference Include="Elsa.Http" />
-        <PackageReference Include="Elsa.Workflows.Runtime.Distributed" />
-        <PackageReference Include="Elsa.Shells.Api" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="CShells" />
-        <PackageReference Include="CShells.Abstractions" />
         <PackageReference Include="CShells.AspNetCore" />
-        <PackageReference Include="CShells.AspNetCore.Abstractions" />
-        <PackageReference Include="CShells.FastEndpoints" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Nuplane" />
-        <PackageReference Include="Nuplane.Abstractions" />
-        <PackageReference Include="Nuplane.Loading" />
-        <PackageReference Include="Nuplane.Loading.Abstractions" />
-        <PackageReference Include="Nuplane.Loading.Api" />
-        <PackageReference Include="Nuplane.Sources.Directory" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Elsa.Scheduling.Quartz" />
-        <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.PostgreSql" />
-        <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.Sqlite" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
-    </ItemGroup>
-
-    <ItemGroup>
+        <ProjectReference Include="..\ElsaProServer.Hosting\ElsaProServer.Hosting.csproj" />
         <ProjectReference Include="..\ElsaProServer.Identity\ElsaProServer.Identity.csproj" />
         <ProjectReference Include="..\ElsaProServer.ServiceDefaults\ElsaProServer.ServiceDefaults.csproj" />
     </ItemGroup>
