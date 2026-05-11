@@ -100,16 +100,16 @@
             "SigningKey": "CHANGE_ME_TO_A_SECURE_RANDOM_KEY_AT_LEAST_256_BITS"
           },
           "PostgreSqlWorkflowPersistence": {
-            "ConnectionString": "Host=localhost;Port=5432;Database=elsa;Username=elsa;Password=elsa"
+            "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
           },
           "PostgreSqlIdentityPersistence": {
-            "ConnectionString": "Host=localhost;Port=5432;Database=elsa;Username=elsa;Password=elsa"
+            "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
           },
           "MassTransitRabbitMq": {
-            "ConnectionString": "amqp://guest:guest@localhost:5672/"
+            "ConnectionString": "amqp://guest:guest@rabbitmq:5672/"
           },
           "QuartzPostgreSql": {
-            "ConnectionString": "Host=localhost;Port=5432;Database=elsa;Username=elsa;Password=elsa"
+            "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
           },
           "Http": {
             "HttpActivityOptions": {
