@@ -56,8 +56,7 @@ public static class ElsaProWorkflowEngineHostingExtensions
                     typeof(JavaScriptFeature),
                     typeof(HttpCacheFeature),
                     typeof(FastEndpointsFeature),
-                    typeof(ElsaFastEndpointsFeature),
-                    typeof(QuartzLoggingShellFeature));
+                    typeof(ElsaFastEndpointsFeature));
             })
         );
 

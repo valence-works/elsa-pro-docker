@@ -18,12 +18,12 @@
     </ItemGroup>
 
     <ItemGroup Label="Elsa.Extensions">
-        <PackageVersion Include="Elsa.Scheduling.Quartz" Version="3.8.0-preview.302" />
-        <PackageVersion Include="Elsa.Scheduling.Quartz.EFCore.PostgreSql" Version="3.8.0-preview.302" />
-        <PackageVersion Include="Elsa.Scheduling.Quartz.EFCore.Sqlite" Version="3.8.0-preview.302" />
-        <PackageVersion Include="Elsa.ServiceBus.MassTransit" Version="3.8.0-preview.302" />
-        <PackageVersion Include="Elsa.ServiceBus.MassTransit.AzureServiceBus" Version="3.8.0-preview.302" />
-        <PackageVersion Include="Elsa.ServiceBus.MassTransit.RabbitMq" Version="3.8.0-preview.302" />
+        <PackageVersion Include="Elsa.Scheduling.Quartz" Version="3.8.0-preview.304" />
+        <PackageVersion Include="Elsa.Scheduling.Quartz.EFCore.PostgreSql" Version="3.8.0-preview.304" />
+        <PackageVersion Include="Elsa.Scheduling.Quartz.EFCore.Sqlite" Version="3.8.0-preview.304" />
+        <PackageVersion Include="Elsa.ServiceBus.MassTransit" Version="3.8.0-preview.304" />
+        <PackageVersion Include="Elsa.ServiceBus.MassTransit.AzureServiceBus" Version="3.8.0-preview.304" />
+        <PackageVersion Include="Elsa.ServiceBus.MassTransit.RabbitMq" Version="3.8.0-preview.304" />
     </ItemGroup>
 
     <ItemGroup Label="Elsa.Studio">
@@ -39,11 +39,11 @@
     </ItemGroup>
 
     <ItemGroup Label="CShells">
-        <PackageVersion Include="CShells" Version="0.0.21-preview.120" />
-        <PackageVersion Include="CShells.Abstractions" Version="0.0.21-preview.120" />
-        <PackageVersion Include="CShells.AspNetCore" Version="0.0.21-preview.120" />
-        <PackageVersion Include="CShells.AspNetCore.Abstractions" Version="0.0.21-preview.120" />
-        <PackageVersion Include="CShells.FastEndpoints" Version="0.0.21-preview.120" />
+        <PackageVersion Include="CShells" Version="0.0.21" />
+        <PackageVersion Include="CShells.Abstractions" Version="0.0.21" />
+        <PackageVersion Include="CShells.AspNetCore" Version="0.0.21" />
+        <PackageVersion Include="CShells.AspNetCore.Abstractions" Version="0.0.21" />
+        <PackageVersion Include="CShells.FastEndpoints" Version="0.0.21" />
     </ItemGroup>
 
     <ItemGroup Label="Nuplane">
