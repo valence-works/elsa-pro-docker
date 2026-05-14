@@ -9,8 +9,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_URLS": "http://localhost:5176",
-        "ELSA_ADMIN_PASSWORD": "password",
-        "ELSA_ADMIN_USER": "proadmin"
+        "CSHELLS__SHELLS__DEFAULT__FEATURES__IDENTITY__SIGNINGKEY": "SUPER_SECRET_KEY_FOR_DEVELOPMENT_ONLY",
+        "CSHELLS__SHELLS__DEFAULT__FEATURES__DEFAULTADMINUSER__ADMINPASSWORD": "password"
       }
     },
     "https": {
@@ -20,7 +20,9 @@
       "applicationUrl": "https://localhost:7292;http://localhost:5176",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_URLS": "https://localhost:7292"
+        "ASPNETCORE_URLS": "https://localhost:7292",
+        "CSHELLS__SHELLS__DEFAULT__FEATURES__IDENTITY__SIGNINGKEY": "SUPER_SECRET_KEY_FOR_DEVELOPMENT_ONLY",
+        "CSHELLS__SHELLS__DEFAULT__FEATURES__DEFAULTADMINUSER__ADMINPASSWORD": "password"
       }
     }
   }

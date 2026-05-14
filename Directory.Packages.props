@@ -18,32 +18,32 @@
     </ItemGroup>
 
     <ItemGroup Label="Elsa.Studio">
-        <PackageVersion Include="Elsa.Studio" Version="3.8.0-preview.1570" />
-        <PackageVersion Include="Elsa.Studio.Core" Version="3.8.0-preview.1570" />
-        <PackageVersion Include="Elsa.Studio.Core.BlazorServer" Version="3.8.0-preview.1570" />
-        <PackageVersion Include="Elsa.Studio.Core.BlazorWasm" Version="3.8.0-preview.1570" />
-        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity" Version="3.8.0-preview.1570" />
-        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorServer" Version="3.8.0-preview.1570" />
-        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorWasm" Version="3.8.0-preview.1570" />
-        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.UI" Version="3.8.0-preview.1570" />
-        <PackageVersion Include="Elsa.Studio.Shell" Version="3.8.0-preview.1570" />
+        <PackageVersion Include="Elsa.Studio" Version="3.8.0-preview.1572" />
+        <PackageVersion Include="Elsa.Studio.Core" Version="3.8.0-preview.1572" />
+        <PackageVersion Include="Elsa.Studio.Core.BlazorServer" Version="3.8.0-preview.1572" />
+        <PackageVersion Include="Elsa.Studio.Core.BlazorWasm" Version="3.8.0-preview.1572" />
+        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity" Version="3.8.0-preview.1572" />
+        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorServer" Version="3.8.0-preview.1572" />
+        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.BlazorWasm" Version="3.8.0-preview.1572" />
+        <PackageVersion Include="Elsa.Studio.Authentication.ElsaIdentity.UI" Version="3.8.0-preview.1572" />
+        <PackageVersion Include="Elsa.Studio.Shell" Version="3.8.0-preview.1572" />
     </ItemGroup>
 
     <ItemGroup Label="CShells">
-        <PackageVersion Include="CShells" Version="0.0.21" />
-        <PackageVersion Include="CShells.Abstractions" Version="0.0.21" />
-        <PackageVersion Include="CShells.AspNetCore" Version="0.0.21" />
-        <PackageVersion Include="CShells.AspNetCore.Abstractions" Version="0.0.21" />
-        <PackageVersion Include="CShells.FastEndpoints" Version="0.0.21" />
+        <PackageVersion Include="CShells" Version="0.0.22-preview.123" />
+        <PackageVersion Include="CShells.Abstractions" Version="0.0.22-preview.123" />
+        <PackageVersion Include="CShells.AspNetCore" Version="0.0.22-preview.123" />
+        <PackageVersion Include="CShells.AspNetCore.Abstractions" Version="0.0.22-preview.123" />
+        <PackageVersion Include="CShells.FastEndpoints" Version="0.0.22-preview.123" />
     </ItemGroup>
 
     <ItemGroup Label="Nuplane">
-        <PackageVersion Include="Nuplane" Version="0.0.8-preview.52" />
-        <PackageVersion Include="Nuplane.Abstractions" Version="0.0.8-preview.52" />
-        <PackageVersion Include="Nuplane.Loading" Version="0.0.8-preview.52" />
-        <PackageVersion Include="Nuplane.Loading.Abstractions" Version="0.0.8-preview.52" />
-        <PackageVersion Include="Nuplane.Loading.Api" Version="0.0.8-preview.52" />
-        <PackageVersion Include="Nuplane.Sources.Directory" Version="0.0.8-preview.52" />
+        <PackageVersion Include="Nuplane" Version="0.0.8" />
+        <PackageVersion Include="Nuplane.Abstractions" Version="0.0.8" />
+        <PackageVersion Include="Nuplane.Loading" Version="0.0.8" />
+        <PackageVersion Include="Nuplane.Loading.Abstractions" Version="0.0.8" />
+        <PackageVersion Include="Nuplane.Loading.Api" Version="0.0.8" />
+        <PackageVersion Include="Nuplane.Sources.Directory" Version="0.0.8" />
     </ItemGroup>
 
     <ItemGroup Label="Microsoft.Extensions">
