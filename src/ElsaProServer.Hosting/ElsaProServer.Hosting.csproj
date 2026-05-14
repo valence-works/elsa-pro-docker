@@ -35,9 +35,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Elsa.Scheduling.Quartz" />
-        <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.PostgreSql" />
-        <PackageReference Include="Elsa.Scheduling.Quartz.EFCore.Sqlite" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
     </ItemGroup>
 

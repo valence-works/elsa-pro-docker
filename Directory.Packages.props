@@ -17,15 +17,6 @@
         <PackageVersion Include="Elsa.Shells.Api" Version="3.8.0-preview.4546" />
     </ItemGroup>
 
-    <ItemGroup Label="Elsa.Extensions">
-        <PackageVersion Include="Elsa.Scheduling.Quartz" Version="3.8.0-preview.304" />
-        <PackageVersion Include="Elsa.Scheduling.Quartz.EFCore.PostgreSql" Version="3.8.0-preview.304" />
-        <PackageVersion Include="Elsa.Scheduling.Quartz.EFCore.Sqlite" Version="3.8.0-preview.304" />
-        <PackageVersion Include="Elsa.ServiceBus.MassTransit" Version="3.8.0-preview.304" />
-        <PackageVersion Include="Elsa.ServiceBus.MassTransit.AzureServiceBus" Version="3.8.0-preview.304" />
-        <PackageVersion Include="Elsa.ServiceBus.MassTransit.RabbitMq" Version="3.8.0-preview.304" />
-    </ItemGroup>
-
     <ItemGroup Label="Elsa.Studio">
         <PackageVersion Include="Elsa.Studio" Version="3.8.0-preview.1570" />
         <PackageVersion Include="Elsa.Studio.Core" Version="3.8.0-preview.1570" />
@@ -47,12 +38,12 @@
     </ItemGroup>
 
     <ItemGroup Label="Nuplane">
-        <PackageVersion Include="Nuplane" Version="0.0.7" />
-        <PackageVersion Include="Nuplane.Abstractions" Version="0.0.7" />
-        <PackageVersion Include="Nuplane.Loading" Version="0.0.7" />
-        <PackageVersion Include="Nuplane.Loading.Abstractions" Version="0.0.7" />
-        <PackageVersion Include="Nuplane.Loading.Api" Version="0.0.7" />
-        <PackageVersion Include="Nuplane.Sources.Directory" Version="0.0.7" />
+        <PackageVersion Include="Nuplane" Version="0.0.8-preview.52" />
+        <PackageVersion Include="Nuplane.Abstractions" Version="0.0.8-preview.52" />
+        <PackageVersion Include="Nuplane.Loading" Version="0.0.8-preview.52" />
+        <PackageVersion Include="Nuplane.Loading.Abstractions" Version="0.0.8-preview.52" />
+        <PackageVersion Include="Nuplane.Loading.Api" Version="0.0.8-preview.52" />
+        <PackageVersion Include="Nuplane.Sources.Directory" Version="0.0.8-preview.52" />
     </ItemGroup>
 
     <ItemGroup Label="Microsoft.Extensions">
