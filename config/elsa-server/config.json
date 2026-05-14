@@ -100,11 +100,14 @@
               "*"
             ]
           },
-          "DefaultAuthentication": {},
-          "Liquid": {},
+          "DefaultAuthentication": true,
+          "Liquid": true,
           "Identity": {
             "SigningKey": "CHANGE_ME_TO_A_SECURE_RANDOM_KEY_AT_LEAST_256_BITS"
           },
+          "SqliteWorkflowPersistence": false,
+          "SqliteIdentityPersistence": false,
+          "QuartzSqlite": false,
           "PostgreSqlWorkflowPersistence": {
             "ConnectionString": "Host=postgres;Port=5432;Database=elsa;Username=elsa;Password=elsa"
           },
