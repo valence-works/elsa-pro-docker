@@ -6,6 +6,7 @@ using ElsaProServer.Hosting;
 using ElsaProStudio.Server;
 using ElsaProStudio.Shared;
 using CShells.Resolution;
+using Elsa.Studio.Workflows.Designer.Options;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,8 @@ var studioHostingModel = configuration.GetValue("Studio:HostingModel", StudioHos
 var useBlazorServer = string.Equals(studioHostingModel, StudioHostingModels.BlazorServer, StringComparison.OrdinalIgnoreCase);
 
 builder.AddElsaProWorkflowEngine();
+
+services.Configure<DesignerOptions>(options => options.UseReactFlow = true);
 
 services.AddSingleton(new WebRoutingShellResolverOptions
 {

@@ -12,6 +12,7 @@ using Elsa.Studio.Models;
 using Elsa.Studio.Shell;
 using Elsa.Studio.Shell.Extensions;
 using Elsa.Studio.Workflows.Designer.Extensions;
+using Elsa.Studio.Workflows.Designer.Options;
 using Elsa.Studio.Workflows.Extensions;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -45,6 +46,8 @@ public static class ElsaProStudioClientExtensions
             ConfigureBackendOptions = options => options.Url = absoluteBackendUrl,
             ConfigureHttpClientBuilder = options => options.AuthenticationHandler = typeof(ElsaIdentityAuthenticatingApiHttpMessageHandler),
         };
+        
+        services.Configure<DesignerOptions>(options => options.UseReactFlow = true);
 
         services.AddCore();
         services.AddShell();

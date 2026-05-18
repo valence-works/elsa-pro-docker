@@ -52,21 +52,7 @@
     },
     "Loading": {
       "Enabled": true,
-      "DefaultLoadMode": "Collectible",
-      "PackageLoadModes": [
-        {
-          "PackageId": "Elsa.Persistence.EFCore.PostgreSql",
-          "LoadMode": "HostIntegrated"
-        },
-        {
-          "PackageId": "Elsa.Scheduling.Quartz.EFCore.PostgreSql",
-          "LoadMode": "HostIntegrated"
-        },
-        {
-          "PackageId": "Elsa.ServiceBus.MassTransit.RabbitMq",
-          "LoadMode": "HostIntegrated"
-        }
-      ],
+      "DefaultLoadMode": "HostIntegrated",
       "SharedAssemblies": [
         {
           "Name": "CShells.Abstractions"
